@@ -12,10 +12,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ReservarMesas">
-        <activity
-            android:name=".tabs"
-            android:label="@string/title_activity_tabs"
-            android:theme="@style/Theme.ReservarMesas.NoActionBar"></activity>
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,6 +22,7 @@
         <activity android:name=".Registro" />
         <activity android:name=".login" />
         <activity android:name=".Filtro" />
+        <activity android:name=".Tabs" />
 
         <meta-data
             android:name="preloaded_fonts"

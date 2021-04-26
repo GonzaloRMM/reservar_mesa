@@ -57,7 +57,7 @@ public class login extends AppCompatActivity {
         password = (EditText) findViewById(R.id.Edit_Contraseña);
         registro = new Intent(this, Registro.class);
         filtro = new Intent(this, Filtro.class);
-        tabs = new Intent(this, tabs.class);
+        tabs = new Intent(this, Tabs.class);
         spinner = (ProgressBar)findViewById(R.id.progressBar1);
         spinner.setVisibility(View.GONE);
 
@@ -156,8 +156,9 @@ public class login extends AppCompatActivity {
 
                             //if(db.collection("users"))
                             filtro.putExtras(b);
-                            startActivityForResult(filtro,1);
-                            //startActivityForResult(tabs,1);
+                            //startActivityForResult(filtro,1);
+                            tabs.putExtras(b);
+                            startActivity(tabs);
 
                         } else {
                             db.collection("users").document(account.getEmail().toString())
