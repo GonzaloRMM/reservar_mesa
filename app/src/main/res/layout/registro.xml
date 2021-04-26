@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFC500"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditText
+        android:id="@+id/Edit_Nombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/denk_one"
+        android:ems="10"
+        android:hint="Username" />
+
+    <EditText
+        android:id="@+id/edit_Password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/denk_one"
+        android:ems="10"
+        android:hint="password"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/edit_Password2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/denk_one"
+        android:ems="10"
+        android:hint="Repeat password"
+        android:inputType="textPassword" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="8dp" />
+
+    <EditText
+        android:id="@+id/Edit_Telefono"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="phone number"
+        android:fontFamily="@font/denk_one"
+        android:inputType="phone" />
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/B_GuardarDatos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FA7C06"
+            android:text="Save"
+            android:fontFamily="@font/denk_one"
+            android:textColor="@color/black"></Button>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Volver"
+            android:textColor="@color/white"
+            android:backgroundTint="#FC0000"
+            android:fontFamily="@font/denk_one"
+            android:id="@+id/B_CerrarSesion">
+        </Button>
+
+    </LinearLayout>
+</LinearLayout>
