@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,8 +27,10 @@ public class EditPerfil extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public EditPerfil() {
+    private String email;
+    public EditPerfil(String email) {
         // Required empty public constructor
+        this.email=email;
     }
 
     /**
@@ -38,7 +43,7 @@ public class EditPerfil extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     public static EditPerfil newInstance(String param1, String param2) {
-        EditPerfil fragment = new EditPerfil();
+        EditPerfil fragment = new EditPerfil("");
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -49,16 +54,25 @@ public class EditPerfil extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
+    private LinearLayout principal;
+    private Button salir;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edit_perfil, container, false);
+        ScrollView scroller = new ScrollView(getActivity());
+
+        principal=new LinearLayout(getActivity());
+
+        scroller.addView(principal);
+        return scroller;
+        //return inflater.inflate(R.layout.fragment_edit_perfil, container, false);
     }
 }

@@ -60,6 +60,7 @@
                 android:id="@+id/button_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="#FFFFFF"
                 android:clickable="false"
                 android:fontFamily="@font/denk_one"
                 android:text="0"></Button>
@@ -125,6 +126,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="#FFFFFF"
             android:fontFamily="@font/denk_one"></Button>
 
         <Button

@@ -8,6 +8,7 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,12 +20,14 @@
             android:id="@+id/tabReserva"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/denk_one"
             android:text="Reservar" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabPerfil"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/denk_one"
             android:text="Perfil" />
 
     </com.google.android.material.tabs.TabLayout>
