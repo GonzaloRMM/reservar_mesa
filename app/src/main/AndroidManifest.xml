@@ -23,6 +23,7 @@
         <activity android:name=".login" />
         <activity android:name=".Filtro" />
         <activity android:name=".Tabs" />
+        <activity android:name=".Confirmacion" />
 
         <meta-data
             android:name="preloaded_fonts"

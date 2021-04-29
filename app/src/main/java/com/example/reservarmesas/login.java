@@ -94,8 +94,8 @@ public class login extends AppCompatActivity {
                                                 spinner.setVisibility(View.VISIBLE);
                                                 Bundle b = new Bundle();
                                                 b.putString("email", email.getText().toString());
-                                                filtro.putExtras(b);
-                                                startActivityForResult(filtro,1);
+                                                tabs.putExtras(b);
+                                                startActivity(tabs);
                                                 spinner.setVisibility(View.GONE);
                                                 //spinner.setVisibility(View.VISIBLE);
                                             }

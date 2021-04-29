@@ -100,11 +100,11 @@ public class Reservas extends Fragment {
         }
     }
 
-    private LinearLayout principal,segundario,fechaLayout,personasLayout;
+    private LinearLayout principal,segundario,personasLayout;
     private Button menos, mas, reserve, number, b1,b2,b3,b4,b5,b6,b7,b8,b9,b10;
     private TextView date,guest, time;
     int num = 0;
-    private GridLayout horasGrid;
+    private GridLayout horasGrid,fechaLayout;
     ArrayList<String> datos = new ArrayList<String>();
     ArrayList<View> tiempos;
     ArrayList<Button> botones;
@@ -115,6 +115,7 @@ public class Reservas extends Fragment {
     DatePickerDialog picker;
     String tiempo = "";
     Typeface typeface;
+    Intent confirmacion;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -126,7 +127,7 @@ public class Reservas extends Fragment {
         TextView text = new TextView(getActivity());
         principal=new LinearLayout(getActivity());
         segundario=new LinearLayout(getActivity());
-        fechaLayout=new LinearLayout(getActivity());
+        fechaLayout=new GridLayout(getActivity());
         personasLayout=new LinearLayout(getActivity());
 
         typeface= ResourcesCompat.getFont(getContext(), R.font.denk_one);
@@ -138,6 +139,7 @@ public class Reservas extends Fragment {
         //login = new Intent(this, login.class);
         horasGrid = new GridLayout(getActivity());
 
+        confirmacion=new Intent(getActivity(),Confirmacion.class);
 
         menos = new Button(getActivity());
         mas = new Button(getActivity());
@@ -192,10 +194,11 @@ public class Reservas extends Fragment {
         principal.setOrientation(LinearLayout.VERTICAL);
         principal.setGravity(Gravity.CENTER_HORIZONTAL);
         segundario.setOrientation(LinearLayout.VERTICAL);
-        fechaLayout.setOrientation(LinearLayout.HORIZONTAL);
+
         personasLayout.setOrientation(LinearLayout.HORIZONTAL);
 
         horasGrid.setColumnCount(4);
+        fechaLayout.setColumnCount(2);
         tiempos=horasGrid.getTouchables();
         crearTiempos(tiempos);
 
@@ -207,7 +210,7 @@ public class Reservas extends Fragment {
         etPlannedDate.setMaxLines(1);
         etPlannedDate.setInputType(InputType.TYPE_DATETIME_VARIATION_DATE);
         etPlannedDate.setTypeface(typeface);
-        etPlannedDate.setWidth(50);
+        etPlannedDate.setWidth(300);
         guest.setText("Guest:");
         guest.setTypeface(typeface);
         time.setText("Time:");
@@ -293,6 +296,19 @@ public class Reservas extends Fragment {
             @Override
             public void onClick(View v) {
                 if (!etPlannedDate.getText().toString().equals("") && num != 0 && !tiempo.equals("")) {
+                    Bundle b = new Bundle();
+                    b.putString("email", email);
+                    b.putString("date", etPlannedDate.getText().toString());
+                    b.putString("num", num+"");
+                    b.putString("time", tiempo);
+                    confirmacion.putExtras(b);
+                    etPlannedDate.setText("");
+                    number.setText(0+"");
+                    for (int i =0; i<botones.size();i++){
+                        botones.get(i).setEnabled(true);
+                    }
+                    startActivity(confirmacion);
+                    /*
                     Map<String, Object> reserva = new HashMap<>();
                     db.collection("Booking").document(email)
                             .set(reserva)
@@ -312,6 +328,7 @@ public class Reservas extends Fragment {
                     reserva.put("people", number.getText().toString());
                     reserva.put("time", tiempo);
                     db.collection("Booking").document(email).update(reserva);
+                     */
                 } else {
                     Toast.makeText(v.getContext(), "Falta algun campo por rellenar", Toast.LENGTH_SHORT).show();
                 }

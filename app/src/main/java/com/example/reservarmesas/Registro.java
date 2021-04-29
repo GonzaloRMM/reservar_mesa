@@ -31,7 +31,7 @@ public class Registro extends AppCompatActivity {
     TextView emailRecuperado, nombreRecuperado, telefonoRecuperado;
     Button cerrarSesion, recuperar, guardar, borrar;
     EditText name, phone,password, password2;
-    private Intent filtro;
+    private Intent tabs;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,7 @@ public class Registro extends AppCompatActivity {
         phone=(EditText)findViewById(R.id.Edit_Telefono);
         password2=(EditText)findViewById(R.id.edit_Password2);
         password=(EditText)findViewById(R.id.edit_Password);
-        filtro = new Intent(this, Filtro.class);
+        tabs = new Intent(this, Tabs.class);
         cerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,8 +83,8 @@ public class Registro extends AppCompatActivity {
 
 
                     Bundle b = new Bundle();
-                    filtro.putExtras(b);
-                    startActivityForResult(filtro,1);
+                    tabs.putExtras(b);
+                    startActivity(tabs);
                 }
                 }
         });
