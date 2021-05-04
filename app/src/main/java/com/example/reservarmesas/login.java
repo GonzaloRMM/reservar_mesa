@@ -39,7 +39,7 @@ public class login extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Button continuar;
     private EditText email, password;
-    private Intent registro, filtro,tabs;
+    private Intent registro, filtro,tabs, admin;
     SignInButton google;
     private final int RC_SIGN_IN=1;
     private ProgressBar spinner;
@@ -58,6 +58,7 @@ public class login extends AppCompatActivity {
         registro = new Intent(this, Registro.class);
         filtro = new Intent(this, Filtro.class);
         tabs = new Intent(this, Tabs.class);
+        admin = new Intent(this, admin.class);
         spinner = (ProgressBar)findViewById(R.id.progressBar1);
         spinner.setVisibility(View.GONE);
 
@@ -91,14 +92,22 @@ public class login extends AppCompatActivity {
                                         if(document.getId().equals(email.getText().toString())     ){
                                             if(document.getData().get("password").equals(password.getText().toString())){
                                                 //Toast. makeText(getApplicationContext(),"ole to", Toast. LENGTH_SHORT).show();
-                                                spinner.setVisibility(View.VISIBLE);
-                                                Bundle b = new Bundle();
-                                                b.putString("email", email.getText().toString());
-                                                tabs.putExtras(b);
-                                                startActivity(tabs);
-                                                spinner.setVisibility(View.GONE);
-                                                //spinner.setVisibility(View.VISIBLE);
-                                            }
+                                                if(!document.getData().get("roll").equals("admin")){
+                                                    spinner.setVisibility(View.VISIBLE);
+                                                    Bundle b = new Bundle();
+                                                    b.putString("email", email.getText().toString());
+                                                    tabs.putExtras(b);
+                                                    startActivity(tabs);
+                                                    spinner.setVisibility(View.GONE);
+                                                    //spinner.setVisibility(View.VISIBLE);
+                                                }
+                                                else{
+                                                    Bundle b = new Bundle();
+                                                    b.putString("email", email.getText().toString());
+                                                    admin.putExtras(b);
+                                                    startActivity(admin);
+                                                }
+                                                }
                                        }
                                         }
                                     }
@@ -150,6 +159,20 @@ public class login extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
+                            if (document.getData().get("password").equals(password.getText().toString())) {
+                                //Toast. makeText(getApplicationContext(),"ole to", Toast. LENGTH_SHORT).show();
+                                if (!document.getData().get("roll").equals("admin")) {
+                                    spinner.setVisibility(View.VISIBLE);
+                                    Bundle b = new Bundle();
+                                    b.putString("email", email.getText().toString());
+                                    tabs.putExtras(b);
+                                    startActivity(tabs);
+                                    spinner.setVisibility(View.GONE);
+                                    //spinner.setVisibility(View.VISIBLE);
+                                } else {
+                                    startActivity(admin);
+                                }
+                                /*
                             getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             spinner.setVisibility(View.VISIBLE);
@@ -159,34 +182,36 @@ public class login extends AppCompatActivity {
                             //startActivityForResult(filtro,1);
                             tabs.putExtras(b);
                             startActivity(tabs);
-
-                        } else {
-                            db.collection("users").document(account.getEmail().toString())
-                                    .set(person)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Log.d("TAG", "DocumentSnapshot successfully written!");
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Log.w("TAG", "Error writing document", e);
-                                        }
-                                    });
-                            spinner.setVisibility(View.VISIBLE);
-                            registro.putExtras(b);
-                            startActivityForResult(registro, 1);
-                            spinner.setVisibility(View.GONE);
-                            email.setText("");
-                            password.setText("");
+                                 */
+                            } else {
+                                db.collection("users").document(account.getEmail().toString())
+                                        .set(person)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d("TAG", "DocumentSnapshot successfully written!");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w("TAG", "Error writing document", e);
+                                            }
+                                        });
+                                spinner.setVisibility(View.VISIBLE);
+                                registro.putExtras(b);
+                                startActivityForResult(registro, 1);
+                                spinner.setVisibility(View.GONE);
+                                email.setText("");
+                                password.setText("");
+                            }
                         }
                     }
                 }
             });
             //updateUI(account);
-        } catch (ApiException e) {
+        }
+        catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w("TAG", "signInResult:failed code=" + e.getStatusCode());

@@ -2,8 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.reservarmesas">
 
-    <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -12,18 +11,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ReservarMesas">
-        <activity android:name=".SplashScreen">
+        <activity android:name=".SplashScreen"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Registro" />
-        <activity android:name=".login" />
+        <activity android:name=".Registro"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".login"
+            android:screenOrientation="portrait"/>
         <activity android:name=".Filtro" />
-        <activity android:name=".Tabs" />
-        <activity android:name=".Confirmacion" />
+        <activity android:name=".Tabs"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Confirmacion"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Perfil"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".admin"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="preloaded_fonts"

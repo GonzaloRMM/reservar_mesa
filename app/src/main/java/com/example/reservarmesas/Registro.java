@@ -78,12 +78,14 @@ public class Registro extends AppCompatActivity {
                     user.put("password", password.getText().toString());
                     user.put("user name", name.getText().toString());
                     user.put("phone", phone.getText().toString());
+                    user.put("roll", "user");
 
                     db.collection("users").document(b.getString("email")).update(user);
 
 
-                    Bundle b = new Bundle();
-                    tabs.putExtras(b);
+                    Bundle b2 = new Bundle();
+                    b2.putString("email", b.getString("email"));
+                    tabs.putExtras(b2);
                     startActivity(tabs);
                 }
                 }

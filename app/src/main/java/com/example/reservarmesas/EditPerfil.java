@@ -98,7 +98,7 @@ public class EditPerfil extends Fragment {
     private Button eliminar,edit,salir;
     private TextView saludo, reserva;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private Intent login;
+    private Intent login,perfil;
     Typeface typeface;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -114,6 +114,7 @@ public class EditPerfil extends Fragment {
         edit=new Button(getActivity());
         salir=new Button(getActivity());
         login = new Intent(getActivity(), login.class);
+        perfil = new Intent(getActivity(), Perfil.class);
         typeface= ResourcesCompat.getFont(getContext(), R.font.denk_one);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -135,10 +136,8 @@ public class EditPerfil extends Fragment {
         principal.setGravity(Gravity.CENTER_VERTICAL);
 
         buscarNombre(saludo);
-        //saludo.setText("Hola xxxx");
         saludo.setTypeface(typeface);
         buscarReserva(reserva);
-        //reserva.setText("Su ultima reserva fue: xx xx xxxx");
         reserva.setTypeface(typeface);
 
         eliminar.setText("Eliminar reservar");
@@ -180,6 +179,15 @@ public class EditPerfil extends Fragment {
             }
         });
 
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle b = new Bundle();
+                b.putString("email", email);
+                perfil.putExtras(b);
+                startActivity(perfil);
+            }
+        });
         return scroller;
         //return inflater.inflate(R.layout.fragment_edit_perfil, container, false);
     }
