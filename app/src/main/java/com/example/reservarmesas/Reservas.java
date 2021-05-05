@@ -16,6 +16,7 @@ import android.os.Bundle;
 
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
@@ -31,6 +32,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Space;
@@ -42,7 +44,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -109,7 +114,7 @@ public class Reservas extends Fragment {
         }
     }
 
-    private LinearLayout principal,segundario,personasLayout;
+    private LinearLayout principal,segundario,personasLayout,imagenLayout;
     private Button menos, mas, reserve, number, b1,b2,b3,b4,b5,b6,b7,b8,b9,b10;
     private TextView date,guest, time;
     int num = 0;
@@ -122,9 +127,10 @@ public class Reservas extends Fragment {
     EditText etPlannedDate;
     Bundle bundle;
     DatePickerDialog picker;
-    String tiempo = "";
+    String tiempo ,name,phone= "";
     Typeface typeface;
     Intent confirmacion;
+    ImageView logo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -138,6 +144,7 @@ public class Reservas extends Fragment {
         segundario=new LinearLayout(getActivity());
         fechaLayout=new GridLayout(getActivity());
         personasLayout=new LinearLayout(getActivity());
+        imagenLayout=new LinearLayout(getActivity());
 
         typeface= ResourcesCompat.getFont(getContext(), R.font.denk_one);
 
@@ -155,6 +162,7 @@ public class Reservas extends Fragment {
         reserve = new Button(getActivity());
         number = new Button(getActivity());
 
+        logo = new ImageView(getActivity());
 
         fechaLayout.addView(date);
         fechaLayout.addView(etPlannedDate);
@@ -168,22 +176,22 @@ public class Reservas extends Fragment {
         segundario.addView(personasLayout);
         segundario.addView(time);
 
-        Space s= new Space(getContext());
-        s.setX(10);
-        s.setY(10);
+        imagenLayout.addView(logo);
 
         principal.addView(segundario);
         principal.addView(horasGrid);
         principal.addView(reserve);
+        principal.addView(imagenLayout);
 
         scroller.addView(principal);
-
+        container.setBackgroundColor(Color.parseColor("#FFC500"));
 
         principal.setOrientation(LinearLayout.VERTICAL);
         principal.setGravity(Gravity.CENTER_HORIZONTAL);
         segundario.setOrientation(LinearLayout.VERTICAL);
 
         personasLayout.setOrientation(LinearLayout.HORIZONTAL);
+
 
         horasGrid.setColumnCount(4);
         fechaLayout.setColumnCount(2);
@@ -206,23 +214,37 @@ public class Reservas extends Fragment {
 
         reserve.setText("reserve");
         reserve.setTypeface(typeface);
+        reserve.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2FD4A5")));
+        reserve.setTextColor(Color.parseColor("#000000"));
+
         number.setText(num + "");
         number.setTypeface(typeface);
         ViewGroup.LayoutParams params = number.getLayoutParams();
         params.width = 100;
         number.setLayoutParams(params);
 
-        number.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2FD4A5")));
+        number.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+        number.setBackground(getResources().getDrawable(R.drawable.boton_redondo));
 
         menos.setText("-");
         menos.setTypeface(typeface);
+        menos.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#8A0CC5")));
+        menos.setTextColor(Color.parseColor("#FFFFFF"));
+
         mas.setText("+");
         mas.setTypeface(typeface);
+        mas.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#8A0CC5")));
+        mas.setTextColor(Color.parseColor("#FFFFFF"));
+
+        logo.setImageResource(R.drawable.portada);
+        logo.setForegroundGravity(Gravity.CENTER);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
         GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(getContext(), gso);
+
+        buscarDatos();
 
         etPlannedDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -258,6 +280,23 @@ public class Reservas extends Fragment {
         return scroller;
     }
 
+    private void buscarDatos() {
+        db.collection("users").document(email).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(value.exists()){
+                    if(value.contains("user name")){
+                        name=(value.getString("user name"));
+
+                    }
+                    if(value.contains("phone")){
+                        phone=( value.getString("phone"));
+                    }
+                }
+            }
+        });
+    }
+
     private void crearTiempos(ArrayList<View> tiempos) {
         botones = new ArrayList<Button>();
         times = new ArrayList<String[]>();
@@ -269,6 +308,7 @@ public class Reservas extends Fragment {
         }
         for (int j = 0; j < botones.size(); j++) {
             botones.get(j).setText(times.get(j)[j]);
+            botones.get(j).setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#EA5114")));
             botones.get(j).setId(j);
             botones.get(j).setTypeface(typeface);
             horasGrid.addView(botones.get(j));
@@ -299,8 +339,8 @@ public class Reservas extends Fragment {
                     b.putString("num", num+"");
                     b.putString("time", tiempo);
                     confirmacion.putExtras(b);
-
                     //startActivity(confirmacion);
+
                     final Dialog dialog = new Dialog(getContext());
                     dialog.setContentView(R.layout.confirmacion);
                     dialog.setTitle("Title...");
@@ -317,6 +357,7 @@ public class Reservas extends Fragment {
                         @Override
                         public void onClick(View v) {
                             Map<String, Object> reserva = new HashMap<>();
+
                             db.collection("Booking").document(email)
                                     .set(reserva)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -331,9 +372,16 @@ public class Reservas extends Fragment {
                                             Log.w("TAG", "Error writing document", e);
                                         }
                                     });
+
                             reserva.put("date", etPlannedDate.getText().toString());
                             reserva.put("people", number.getText().toString());
                             reserva.put("time", tiempo);
+                            reserva.put("name", name);
+                            reserva.put("phone", phone);
+                            Toast.makeText(v.getContext(), phone, Toast.LENGTH_SHORT).show();
+
+
+
                             db.collection("Booking").document(email).update(reserva);
 
                             /*

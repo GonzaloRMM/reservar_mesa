@@ -1,6 +1,7 @@
 package com.example.reservarmesas;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -94,12 +96,13 @@ public class EditPerfil extends Fragment {
         }
     }
 
-    private LinearLayout principal,segundario;
+    private LinearLayout principal,segundario,imagenLayout;
     private Button eliminar,edit,salir;
     private TextView saludo, reserva;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Intent login,perfil;
     Typeface typeface;
+    ImageView logo;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -108,18 +111,27 @@ public class EditPerfil extends Fragment {
 
         principal=new LinearLayout(getActivity());
         segundario=new LinearLayout(getActivity());
+        imagenLayout=new LinearLayout(getActivity());
+
         saludo=new TextView(getActivity());
         reserva=new TextView(getActivity());
+
         eliminar=new Button(getActivity());
         edit=new Button(getActivity());
         salir=new Button(getActivity());
+
         login = new Intent(getActivity(), login.class);
         perfil = new Intent(getActivity(), Perfil.class);
+
+        logo = new ImageView(getActivity());
+
         typeface= ResourcesCompat.getFont(getContext(), R.font.denk_one);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
         GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
+
+        imagenLayout.addView(logo);
 
         segundario.addView(reserva);
         segundario.addView(eliminar);
@@ -128,15 +140,19 @@ public class EditPerfil extends Fragment {
         principal.addView(segundario);
         principal.addView(edit);
         principal.addView(salir);
+        principal.addView(imagenLayout);
 
         scroller.addView(principal);
 
         principal.setOrientation(LinearLayout.VERTICAL);
+        principal.setGravity(Gravity.CENTER_HORIZONTAL);
         segundario.setOrientation(LinearLayout.VERTICAL);
-        principal.setGravity(Gravity.CENTER_VERTICAL);
+        //principal.setGravity(Gravity.CENTER_VERTICAL);
 
         buscarNombre(saludo);
         saludo.setTypeface(typeface);
+        saludo.setTextSize(30);
+        saludo.setTextColor(Color.parseColor("#000000"));
         buscarReserva(reserva);
         reserva.setTypeface(typeface);
 
@@ -146,6 +162,9 @@ public class EditPerfil extends Fragment {
         edit.setTypeface(typeface);
         salir.setText("Cerrar sesion");
         salir.setTypeface(typeface);
+
+        logo.setImageResource(R.drawable.portada);
+        logo.setForegroundGravity(Gravity.CENTER);
 
         eliminar.setOnClickListener(new View.OnClickListener() {
             @Override
