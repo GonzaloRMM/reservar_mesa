@@ -2,12 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/tabs"
+    android:background="#FFC500">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
-
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -15,11 +16,25 @@
         app:tabGravity="center">
 
         <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabInicio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/denk_one"
+            android:text="Inicio" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/denk_one"
+            android:text="Menu" />
+
+        <com.google.android.material.tabs.TabItem
             android:id="@+id/tabReserva"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/denk_one"
-            android:text="Reservar" />
+            android:text="Reserva" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabPerfil"
@@ -27,6 +42,13 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/denk_one"
             android:text="Perfil" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabInformacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/denk_one"
+            android:text="Info" />
 
     </com.google.android.material.tabs.TabLayout>
 

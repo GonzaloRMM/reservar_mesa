@@ -3,11 +3,103 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditPerfil">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".EditPerfil"
+    android:background="#FFC500">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textFragmen2"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textSaludo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"></TextView>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"></Space>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/layoutEditar"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/button_editar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#FFC500"
+                            android:src="@android:drawable/ic_menu_manage"></ImageButton>
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:id="@+id/editar"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:backgroundTint="#10D4BF"
+                            android:fontFamily="@font/denk_one"
+                            android:text="Edit perfil"></Button>
+                    </LinearLayout>
+                    <Space
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"></Space>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/layoutSalir"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/button_cerrarSesion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#FFC500"
+                            android:src="@android:drawable/ic_lock_power_off"></ImageButton>
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:id="@+id/cerrar"
+                            android:backgroundTint="#FF4C00"
+                            android:fontFamily="@font/denk_one"
+                            android:text="  Sign off"></Button>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/InicioContenedor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="center"
+                app:srcCompat="@drawable/portada" />
+        </LinearLayout>
+
+    </LinearLayout>
 </FrameLayout>

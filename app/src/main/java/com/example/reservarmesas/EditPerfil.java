@@ -1,5 +1,6 @@
 package com.example.reservarmesas;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -16,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -95,155 +97,104 @@ public class EditPerfil extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
-    private LinearLayout principal,segundario,imagenLayout;
-    private Button eliminar,edit,salir;
-    private TextView saludo, reserva;
+    private LinearLayout editar,cerrar;
+    private ImageButton edit,salir;
+    private TextView saludo;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private Intent login,perfil;
+    private Intent splas,perfil;
     Typeface typeface;
-    ImageView logo;
+    private Button editarPerfil, cerrarSesion;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ScrollView scroller = new ScrollView(getActivity());
+        View v = inflater.inflate(R.layout.fragment_edit_perfil,container,false);
 
-        principal=new LinearLayout(getActivity());
-        segundario=new LinearLayout(getActivity());
-        imagenLayout=new LinearLayout(getActivity());
 
-        saludo=new TextView(getActivity());
-        reserva=new TextView(getActivity());
+        editar=(LinearLayout)v.findViewById(R.id.layoutEditar);
+        cerrar=(LinearLayout)v.findViewById(R.id.layoutSalir);
 
-        eliminar=new Button(getActivity());
-        edit=new Button(getActivity());
-        salir=new Button(getActivity());
+        saludo=(TextView)v.findViewById(R.id.textSaludo);
 
-        login = new Intent(getActivity(), login.class);
+        editarPerfil=(Button)v.findViewById(R.id.editar);
+        cerrarSesion=(Button)v.findViewById(R.id.cerrar);
+
+        edit=(ImageButton)v.findViewById(R.id.button_editar);
+        salir=(ImageButton)v.findViewById(R.id.button_cerrarSesion);
+
+        splas = new Intent(getActivity(), SplashScreen.class);
         perfil = new Intent(getActivity(), Perfil.class);
 
-        logo = new ImageView(getActivity());
-
         typeface= ResourcesCompat.getFont(getContext(), R.font.denk_one);
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
         GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
 
-        imagenLayout.addView(logo);
-
-        segundario.addView(reserva);
-        segundario.addView(eliminar);
-
-        principal.addView(saludo);
-        principal.addView(segundario);
-        principal.addView(edit);
-        principal.addView(salir);
-        principal.addView(imagenLayout);
-
-        scroller.addView(principal);
-
-        principal.setOrientation(LinearLayout.VERTICAL);
-        principal.setGravity(Gravity.CENTER_HORIZONTAL);
-        segundario.setOrientation(LinearLayout.VERTICAL);
-        //principal.setGravity(Gravity.CENTER_VERTICAL);
-
-        buscarNombre(saludo);
+        buscarNombre(saludo,"Hi ");
         saludo.setTypeface(typeface);
-        saludo.setTextSize(30);
+        saludo.setTextSize(40);
         saludo.setTextColor(Color.parseColor("#000000"));
-        buscarReserva(reserva);
-        reserva.setTypeface(typeface);
 
-        eliminar.setText("Eliminar reservar");
-        eliminar.setTypeface(typeface);
-        edit.setText("Editar perfil");
-        edit.setTypeface(typeface);
-        salir.setText("Cerrar sesion");
-        salir.setTypeface(typeface);
 
-        logo.setImageResource(R.drawable.portada);
-        logo.setForegroundGravity(Gravity.CENTER);
-
-        eliminar.setOnClickListener(new View.OnClickListener() {
+        cerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.collection("Booking").document(email)
-                        .delete()
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "DocumentSnapshot successfully deleted!");
-                                reserva.setText("No tiene ninguna reserva aun");
-                                eliminar.setEnabled(false);
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error deleting document", e);
-                            }
-                        });
+                signOff(mGoogleSignInClient);
+            }
+
+
+        });
+        cerrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signOff(mGoogleSignInClient);
             }
         });
         salir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signOut(mGoogleSignInClient);
-                FirebaseAuth.getInstance().signOut();
-                //onBackPressed();
-                startActivity(login);
-                getActivity().finish();
+                signOff(mGoogleSignInClient);
             }
         });
 
+        editar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editar();
+            }
+        });
+        editarPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editar();
+            }
+        });
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle b = new Bundle();
-                b.putString("email", email);
-                perfil.putExtras(b);
-                startActivity(perfil);
+                editar();
             }
         });
-        return scroller;
+        return v;
         //return inflater.inflate(R.layout.fragment_edit_perfil, container, false);
     }
 
-    private void buscarReserva(TextView reserva) {
-        db.collection("Booking").document(email).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                if(value.exists()){
-                    if(value.contains("date")&&value.contains("people")&&value.contains("time")){
-                        if(value.getString("people").equals(1+"")){
-                            reserva.setText("Su ultima resrva fue: "+ value.getString("date")
-                                    +" "+ value.getString("people")+ " person " + value.getString("time"));
-                        }else{
-                            reserva.setText("Su ultima resrva fue: "+ value.getString("date")
-                                    +" "+ value.getString("people")+ "people " + value.getString("time"));
-                        }
-
-                        eliminar.setEnabled(true);
-                    }
-                }
-                else{
-                    reserva.setText("No tiene ninguna reserva aun");
-                    eliminar.setEnabled(false);
-                }
-            }
-        });
+    public void editar() {
+        Bundle b = new Bundle();
+        b.putString("email", email);
+        perfil.putExtras(b);
+        startActivity(perfil);
     }
 
-    private void buscarNombre(TextView saludo) {
-
+    public void buscarNombre(TextView saludo,String hola) {
         db.collection("users").document(email).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 if(value.exists()){
                     if(value.contains("user name")){
-                        saludo.setText("Hola "+ value.getString("user name"));
+                        saludo.setText(hola + value.getString("user name"));
                     }
                 }
             }
@@ -258,6 +209,36 @@ public class EditPerfil extends Fragment {
                         // ...
                     }
                 });
+    }
+    private void signOff(GoogleSignInClient mGoogleSignInClient) {
+        final Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.confirmacion);
+        dialog.setTitle("Title...");
+
+        // set the custom dialog components - text, image and button
+        TextView text = (TextView) dialog.findViewById(R.id.textConfirmacion);
+        text.setText("¿Quieres cerrar sesion? ");
+
+        Button confirmar = (Button) dialog.findViewById(R.id.bConfirmar);
+        Button cancelar = (Button) dialog.findViewById(R.id.bCancelar);
+        // if button is clicked, close the custom dialog
+        confirmar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signOut(mGoogleSignInClient);
+                FirebaseAuth.getInstance().signOut();
+                //onBackPressed();
+                startActivity(splas);
+                getActivity().finish();
+            }
+        });
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 }
 

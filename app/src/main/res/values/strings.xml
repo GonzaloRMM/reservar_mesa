@@ -10,17 +10,23 @@
 
     <string name="prefs_file">com.example.reservarmesas.PREFERENCE_FILE_KEY</string>
 
+
+
+    <string name="infoPersona">com.example.reservarmesas.PREFERENCE_FILE_KEY</string>
+    <string name="infoAPP">Esta es la v.1 de la aplicacion para reservar en el restaurante "Tremendo burrito"</string>
+    <string name="infoRestaurante">El restaurante Tremendo Burrito es un restaurante de comida rapida mexicana</string>
+
     <string-array name="times">
-        <item>12:30</item>
-        <item>13:30</item>
-        <item>14:30</item>
-        <item>15:30</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
         <item>16:00</item>
+        <item>16:30</item>
         <item>20:00</item>
+        <item>20:30</item>
         <item>21:00</item>
+        <item>21:30</item>
         <item>22:00</item>
-        <item>23:00</item>
-        <item>23:30</item>
     </string-array>
     <string name="title_activity_tabs">tabs</string>
     <string name="tab_text_1">Tab 1</string>

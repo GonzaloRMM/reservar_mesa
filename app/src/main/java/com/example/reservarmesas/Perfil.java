@@ -15,8 +15,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -54,6 +60,10 @@ public class Perfil  extends AppCompatActivity {
         lastPassword=(EditText)findViewById(R.id.textLastPassword);
         numberPhone=(EditText)findViewById(R.id.editTextPhone);
 
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         login = new Intent(this, login.class);
 
         buscarDatos();
@@ -169,6 +179,8 @@ public class Perfil  extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         db.collection("users").document(email).delete();
+                        signOut(mGoogleSignInClient);
+                        FirebaseAuth.getInstance().signOut();
                         startActivity(login);
                     }
                 });
@@ -197,5 +209,14 @@ public class Perfil  extends AppCompatActivity {
                 }
             }
         });
+    }
+    private void signOut(GoogleSignInClient mGoogleSignInClient) {
+        mGoogleSignInClient.revokeAccess()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // ...
+                    }
+                });
     }
 }

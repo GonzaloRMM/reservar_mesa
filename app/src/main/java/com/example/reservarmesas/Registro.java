@@ -12,6 +12,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -31,8 +34,10 @@ public class Registro extends AppCompatActivity {
     TextView emailRecuperado, nombreRecuperado, telefonoRecuperado;
     Button cerrarSesion, recuperar, guardar, borrar;
     EditText name, phone,password, password2;
-    private Intent tabs;
+    private Intent tabs,login;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    Bundle b;
+    String email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,11 +55,21 @@ public class Registro extends AppCompatActivity {
         password2=(EditText)findViewById(R.id.edit_Password2);
         password=(EditText)findViewById(R.id.edit_Password);
         tabs = new Intent(this, Tabs.class);
+        login = new Intent(this, login.class);
+        email=b.getString("email");
+
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         cerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                db.collection("users").document(email).delete();
+                signOut(mGoogleSignInClient);
                 FirebaseAuth.getInstance().signOut();
-                onBackPressed();
+                startActivity(login);
             }
         });
         guardar.setOnClickListener(new View.OnClickListener() {
@@ -90,47 +105,14 @@ public class Registro extends AppCompatActivity {
                 }
                 }
         });
-        /*
-        recuperar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                db.collection("users")
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        Log.d("TAG", document.getId() + " => " + document.getData());
-                                        nombreRecuperado.setText(""+document.getData().get("nombre"));
-                                        telefonoRecuperado.setText("" + document.getData().get("telefono"));
-                                    }
-                                } else {
-                                    Log.w("TAG", "Error getting documents.", task.getException());
-                                }
-                            }
-                        });
-            }
-        });
-        borrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                db.collection("users").document("")
-                        .delete()
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d("TAG", "DocumentSnapshot successfully deleted!");
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w("TAG", "Error deleting document", e);
-                            }
-                        });
-            }
-        });
-         */
     }
-}
+    private void signOut(GoogleSignInClient mGoogleSignInClient) {
+        mGoogleSignInClient.revokeAccess()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                    }
+                });
+    }
+    }

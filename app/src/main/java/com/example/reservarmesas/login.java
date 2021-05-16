@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -27,19 +28,23 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static android.content.ContentValues.TAG;
+
 public class login extends AppCompatActivity {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Button continuar;
     private EditText email, password;
-    private Intent registro, filtro,tabs;
+    private Intent registro, filtro,tabs,admin;
     SignInButton google;
     private final int RC_SIGN_IN=1;
     private ProgressBar spinner;
@@ -58,6 +63,7 @@ public class login extends AppCompatActivity {
         registro = new Intent(this, Registro.class);
         filtro = new Intent(this, Filtro.class);
         tabs = new Intent(this, Tabs.class);
+        admin = new Intent(this, admin.class);
         spinner = (ProgressBar)findViewById(R.id.progressBar1);
         spinner.setVisibility(View.GONE);
 
@@ -158,15 +164,75 @@ public class login extends AppCompatActivity {
                             //if(db.collection("users"))
                             //filtro.putExtras(b);
                             //startActivityForResult(filtro,1);
-                            tabs.putExtras(b);
-                            startActivity(tabs);
 
+                            db.collection("users")
+                                    .whereNotEqualTo("roll", "admin")
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    Log.d(TAG, document.getId() + " => " + document.getData());
+                                                    if (document.getData().isEmpty()) {
+                                                        spinner.setVisibility(View.VISIBLE);
+                                                        registro.putExtras(b);
+                                                        startActivity(registro, b);
+                                                        spinner.setVisibility(View.GONE);
+                                                        email.setText("");
+                                                        password.setText("");
+                                                    } else {
+                                                        spinner.setVisibility(View.GONE);
+                                                        tabs.putExtras(b);
+                                                        startActivity(tabs);
+                                                    }
+                                                }
+                                            } else {
+                                                admin.putExtras(b);
+                                                startActivity(admin);
+                                            }
+                                        }
+                                    });
+                          /*db.collection("users").document(account.getEmail().toString()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                                @Override
+                                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                    if (error != null) {
+                                        Log.w(TAG, "Listen failed.", error);
+                                        return;
+                                    }
+                                    if(value!= null && value.exists()){
+                                        if(value.contains("roll")){
+                                            if(value.getString("roll").equals("admin")){
+                                                admin.putExtras(b);
+                                                startActivity(admin);
+                                            }
+                                            else{
+                                                tabs.putExtras(b);
+                                                startActivity(tabs);
+                                            }
+                                        }
+                                    }else if(!value.contains("user name")&&value!= null && value.exists()){
+                                        spinner.setVisibility(View.VISIBLE);
+                                        registro.putExtras(b);
+                                        startActivityForResult(registro, 1);
+                                        spinner.setVisibility(View.GONE);
+                                        email.setText("");
+                                        password.setText("");
+                                    }
+                                }
+                            });*/
                         } else {
                             db.collection("users").document(account.getEmail().toString())
                                     .set(person)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
+                                            spinner.setVisibility(View.VISIBLE);
+                                            registro.putExtras(b);
+                                            startActivity(registro, b);
+                                            spinner.setVisibility(View.GONE);
+                                            email.setText("");
+                                            password.setText("");
                                             Log.d("TAG", "DocumentSnapshot successfully written!");
                                         }
                                     })
@@ -176,12 +242,7 @@ public class login extends AppCompatActivity {
                                             Log.w("TAG", "Error writing document", e);
                                         }
                                     });
-                            spinner.setVisibility(View.VISIBLE);
-                            registro.putExtras(b);
-                            startActivityForResult(registro, 1);
-                            spinner.setVisibility(View.GONE);
-                            email.setText("");
-                            password.setText("");
+
                         }
                     }
                 }

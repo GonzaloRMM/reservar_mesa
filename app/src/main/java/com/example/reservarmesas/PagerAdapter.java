@@ -1,15 +1,10 @@
 package com.example.reservarmesas;
 
-import android.widget.Switch;
+import android.view.MotionEvent;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class PagerAdapter extends FragmentPagerAdapter {
 
@@ -22,14 +17,19 @@ public class PagerAdapter extends FragmentPagerAdapter {
         this.numOfTabs=numOfTabs;
         this.email=email;
     }
-
     @Override
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new Reservas(email);
+                return new Inicio(email);
             case 1:
+                return new Menu(email);
+            case 2:
+                return new Reservas(email);
+            case 3:
                 return new EditPerfil(email);
+            case 4:
+                return new Informacion(email);
             default:
                 return null;
         }
@@ -39,5 +39,4 @@ public class PagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return numOfTabs;
     }
-
 }

@@ -27,17 +27,19 @@ public class Tabs extends AppCompatActivity {
         bundle= getIntent().getExtras();
 
         PagerAdapter tabAdapter= new PagerAdapter(getSupportFragmentManager(),tabs.getTabCount(),bundle.getString("email"));
+
+        viewPager.beginFakeDrag();
         viewPager.setAdapter(tabAdapter);
 
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
@@ -48,5 +50,6 @@ public class Tabs extends AppCompatActivity {
 
     }
 
-}
+
+        }
 
