@@ -28,6 +28,27 @@
         <item>21:30</item>
         <item>22:00</item>
     </string-array>
+    <string-array name="menuBurritosTitulo">
+        <item>Burrito Frontera Fried Chicken 7,50€</item>
+        <item>Burrito Ándale Chicken 7,50€</item>
+        <item>Burrito Huracán Pibil 7,50€</item>
+        <item>Burrito Santo Veggie 7,50€</item>
+        <item>Burrito Entraña Monterrey 7,50€</item>
+        <item>Burrito Colimote 7,50€</item>
+        <item>¡Burrito al Gusto! 7,50€</item>
+    </string-array>
+
+    <string-array name="menuBurritos">
+        <item>Arroz, pollo crujiente, salsa yucatán, frijoles, lechuga, mix de quesos y crema agria\n</item>
+        <item>Arroz, tinga de pollo, mix de verduras, mezcla de quesos, pico de gallo, salsa yucatán y nachos picados\n</item>
+        <item>Arroz, cochinita pibil, piña caramelizada, mix de verduras, crema agria y salsa pacífico\n</item>
+        <item>Arroz integral, mix de verduras, frijoles, mix de quesos y pico de gallo\n</item>
+        <item>Arroz, entraña cocinada a baja temperatura, frijoles, mix de quesos y nachos picados\n</item>
+        <item>Arroz, cochinita pibil, pico de gallo, mix de verduras, crema agria, mix de quesos y guacamole\n</item>
+        <item>A - Burrito clásico, liado en tortilla de trigo\n
+            B - Desnudo, sin tortilla de trigo, al plato...\n</item>
+    </string-array>
+
     <string name="title_activity_tabs">tabs</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>

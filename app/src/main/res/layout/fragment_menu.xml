@@ -14,7 +14,7 @@
         android:columnCount="2"
         android:rowCount="3">
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardBurrito"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -31,6 +31,7 @@
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:orientation="vertical">
                 <ImageButton
+                    android:id="@+id/cardBurrito"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -51,7 +52,6 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardNachos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -67,6 +67,7 @@
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:orientation="vertical">
                 <ImageButton
+                    android:id="@+id/cardNachos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -85,7 +86,7 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardQuesadillas"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -101,6 +102,7 @@
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:orientation="vertical">
                 <ImageButton
+                    android:id="@+id/cardQuesadillas"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -120,7 +122,7 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardBebidas"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -136,6 +138,7 @@
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:orientation="vertical">
                 <ImageButton
+                    android:id="@+id/cardBebidas"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -156,7 +159,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardTacos"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -172,6 +175,7 @@
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:orientation="vertical">
                 <ImageButton
+                    android:id="@+id/cardTacos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"

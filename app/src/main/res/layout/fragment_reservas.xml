@@ -9,13 +9,14 @@
     android:background="#FFC500">
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:id="@+id/reservaContenedor">
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="192dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center_horizontal"
@@ -31,18 +32,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/denk_one"
+                    android:textStyle="bold"
                     android:text="Date:" />
 
                 <EditText
                     android:id="@+id/etPlannedDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="date"
-                    android:focusable="false"
                     android:clickable="true"
+                    android:focusable="false"
                     android:fontFamily="@font/denk_one"
+                    android:inputType="date"
                     android:maxLines="1" />
             </LinearLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"></Space>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -50,34 +56,22 @@
                 android:fontFamily="@font/denk_one"
                 android:text="Guests"></TextView>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                <Button
-                    android:id="@+id/button_menos"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/denk_one"
-                    android:text="-"
-                    android:textSize="25dp"></Button>
-
-                <Space
-                    android:layout_width="20dp"
-                    android:layout_height="wrap_content"></Space>
 
                 <Button
                     android:id="@+id/button_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:clickable="false"
+                    android:backgroundTint="#FFC500"
                     android:fontFamily="@font/denk_one"
-                    android:text="0"></Button>
-
-                <Space
-                    android:layout_width="20dp"
-                    android:layout_height="wrap_content"></Space>
+                    android:text="0"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/button_mas"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></Button>
 
                 <Button
                     android:id="@+id/button_mas"
@@ -85,35 +79,52 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/denk_one"
                     android:text="+"
-                    android:textSize="25dp"></Button>
-            </LinearLayout>
+                    android:textSize="25dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></Button>
+
+                <Button
+                    android:id="@+id/button_menos"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/denk_one"
+                    android:text="-"
+                    android:textSize="25dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></Button>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"></Space>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/denk_one"
+                android:text="Time:"></TextView>
+
+            <GridLayout
+                android:id="@+id/contenedorTiempos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:columnCount="4"
+                android:orientation="horizontal"
+                android:rowCount="2">
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/denk_one"
-            android:text="Time:"></TextView>
+            </GridLayout>
 
-        <GridLayout
-            android:id="@+id/contenedorTiempos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:columnCount="4"
-            android:orientation="horizontal"
-            android:rowCount="2">
-
-
-
-        </GridLayout>
-
-        <Button
-            android:id="@+id/button_reserve"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/denk_one"
-            android:text="Reservar"></Button>
+            <Button
+                android:id="@+id/button_reserve"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/denk_one"
+                android:text="Reservar"></Button>
 
         </LinearLayout>
         <ImageView

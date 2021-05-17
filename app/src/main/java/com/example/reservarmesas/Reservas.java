@@ -125,7 +125,8 @@ public class Reservas extends Fragment {
     }
 
     private LinearLayout principal;
-    private Button menos, mas, reserve, number, b1,b2,b3,b4,b5,b6,b7,b8,b9,b10;
+    private Button menos, mas, reserve, number;
+
     int num,contador = 0;
     private GridLayout horasGrid;
     ArrayList<String> datos = new ArrayList<String>();
@@ -185,11 +186,11 @@ public class Reservas extends Fragment {
         number.setText(num + "");
         number.setTypeface(typeface);
         ViewGroup.LayoutParams params = number.getLayoutParams();
-        params.width = 100;
-        number.setLayoutParams(params);
+        //params.width = 100;
+        //number.setLayoutParams(params);
 
-        number.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
-        number.setBackground(getResources().getDrawable(R.drawable.boton_redondo));
+        number.setTextColor(ColorStateList.valueOf(Color.parseColor("#000000")));
+        //number.setBackground(getResources().getDrawable(R.drawable.boton_redondo));
 
         menos.setText("-");
         menos.setTypeface(typeface);
@@ -225,6 +226,9 @@ public class Reservas extends Fragment {
                     num--;
                     number.setText(num + "");
                 }
+                else{
+                    Toast.makeText(container.getContext(), "opcion no valida", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         mas.setOnClickListener(new View.OnClickListener() {
@@ -235,7 +239,7 @@ public class Reservas extends Fragment {
                     num++;
                     number.setText(num + "");
                 } else {
-                    Toast.makeText(container.getContext(), "6 people maximum", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(container.getContext(), "6 personas maximo", Toast.LENGTH_SHORT).show();
                 }
             }
         });
