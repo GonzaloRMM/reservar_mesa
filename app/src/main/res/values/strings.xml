@@ -63,7 +63,6 @@
     <string-array name="menuTacosTitulo">
         <item>Tacos, 2 Unidades a Elegir 5,00€</item>
         <item>Tacos, 4 Unidades a Elegir 9,00€</item>
-
     </string-array>
 
     <string-array name="menuTacos">
@@ -106,6 +105,18 @@
         <item>37cl\n</item>
         <item>37cl\n</item>
         <item>37cl\n</item>
+    </string-array>
+
+    <string-array name="menuQuesadillasTitulo">
+        <item>Quesadilla de Tinga de Pollo 6,90€</item>
+        <item>Quesadilla de Cochinita Pibil 6,90€</item>
+        <item>Quesadilla de Entraña 7,40€</item>
+    </string-array>
+
+    <string-array name="menuQuesadillas">
+        <item>Queso, tinga de pollo\n</item>
+        <item>Queso, cochinita pibil\n</item>
+        <item>Quesadilla, entraña cocinada a baja temperatura\n</item>
     </string-array>
 
     <string name="title_activity_tabs">tabs</string>

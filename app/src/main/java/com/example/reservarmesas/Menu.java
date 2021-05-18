@@ -167,9 +167,10 @@ public class Menu extends Fragment {
                 colorFondo="#8A0CC5";
                 colorTitulo="#EF4C07";
                 colorTexto="#08E19D";
-                //menu=R.array.menuBurritos;
-                //tituloMenu=R.array.menuBurritosTitulo;
-                //mostrarMenu(menu,tituloMenu,colorFondo,colorTitulo,colorTexto);
+                cantidad=3;
+                menu=R.array.menuQuesadillas;
+                tituloMenu=R.array.menuQuesadillasTitulo;
+                mostrarMenu(menu,tituloMenu,colorFondo,colorTitulo,colorTexto,cantidad);
                 break;
             case 5:
                 colorFondo="#FFC501";
