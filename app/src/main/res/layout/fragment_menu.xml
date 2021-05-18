@@ -13,23 +13,26 @@
         android:layout_height="wrap_content"
         android:columnCount="2"
         android:rowCount="3">
+
         <androidx.cardview.widget.CardView
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="6dp"
+            android:foreground="?selectableItemBackground"
 
-            android:layout_rowWeight="1"
-            android:foreground="?selectableItemBackground">
+            app:cardCornerRadius="8dp"
+            app:cardElevation="6dp">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:orientation="vertical">
+
                 <ImageButton
                     android:id="@+id/cardBurrito"
                     android:layout_width="wrap_content"
@@ -37,35 +40,37 @@
                     android:layout_gravity="center_horizontal"
                     android:backgroundTint="@color/white"
                     android:src="@drawable/burrito"></ImageButton>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:fontFamily="@font/denk_one"
                     android:text="Burritos"
-                    android:textColor="#000000"
                     android:textAlignment="center"
+                    android:textColor="#000000"
                     android:textSize="16sp"
-                    android:textStyle="bold"
-                    ></TextView>
+                    android:textStyle="bold"></TextView>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
+            android:foreground="?selectableItemBackground"
             app:cardCornerRadius="8dp"
-            app:cardElevation="6dp"
-            android:layout_rowWeight="1"
-            android:foreground="?selectableItemBackground">
+            app:cardElevation="6dp">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:orientation="vertical">
+
                 <ImageButton
                     android:id="@+id/cardNachos"
                     android:layout_width="wrap_content"
@@ -73,34 +78,38 @@
                     android:layout_gravity="center_horizontal"
                     android:backgroundTint="@color/white"
                     android:src="@drawable/nachos"></ImageButton>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:fontFamily="@font/denk_one"
                     android:text="Nachos"
-                    android:textColor="#000000"
                     android:textAlignment="center"
+                    android:textColor="#000000"
                     android:textSize="16sp"
                     android:textStyle="bold"></TextView>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
+            android:foreground="?selectableItemBackground"
             app:cardCornerRadius="8dp"
-            app:cardElevation="6dp"
-            android:layout_rowWeight="1"
-            android:foreground="?selectableItemBackground">
+            app:cardElevation="6dp">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:orientation="vertical">
+
                 <ImageButton
                     android:id="@+id/cardQuesadillas"
                     android:layout_width="wrap_content"
@@ -108,35 +117,38 @@
                     android:layout_gravity="center_horizontal"
                     android:backgroundTint="@color/white"
                     android:src="@drawable/quesadillas"></ImageButton>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:fontFamily="@font/denk_one"
                     android:text="Quesadillas"
-                    android:textColor="#000000"
                     android:textAlignment="center"
+                    android:textColor="#000000"
                     android:textSize="16sp"
-                    android:textStyle="bold"
-                    ></TextView>
+                    android:textStyle="bold"></TextView>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
+            android:foreground="?selectableItemBackground"
             app:cardCornerRadius="8dp"
-            app:cardElevation="6dp"
-            android:layout_rowWeight="1"
-            android:foreground="?selectableItemBackground">
+            app:cardElevation="6dp">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:orientation="vertical">
+
                 <ImageButton
                     android:id="@+id/cardBebidas"
                     android:layout_width="wrap_content"
@@ -144,17 +156,17 @@
                     android:layout_gravity="center_horizontal"
                     android:backgroundTint="@color/white"
                     android:src="@drawable/bebidas"></ImageButton>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:fontFamily="@font/denk_one"
                     android:text="Bebidas"
-                    android:textColor="#000000"
                     android:textAlignment="center"
+                    android:textColor="#000000"
                     android:textSize="16sp"
-                    android:textStyle="bold"
-                    ></TextView>
+                    android:textStyle="bold"></TextView>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -162,18 +174,20 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
+            android:foreground="?selectableItemBackground"
             app:cardCornerRadius="8dp"
-            app:cardElevation="6dp"
-            android:layout_rowWeight="1"
-            android:foreground="?selectableItemBackground">
+            app:cardElevation="6dp">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:orientation="vertical">
+
                 <ImageButton
                     android:id="@+id/cardTacos"
                     android:layout_width="wrap_content"
@@ -181,17 +195,17 @@
                     android:layout_gravity="center_horizontal"
                     android:backgroundTint="@color/white"
                     android:src="@drawable/tacos"></ImageButton>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:fontFamily="@font/denk_one"
                     android:text="Tacos"
-                    android:textColor="#000000"
                     android:textAlignment="center"
+                    android:textColor="#000000"
                     android:textSize="16sp"
-                    android:textStyle="bold"
-                    ></TextView>
+                    android:textStyle="bold"></TextView>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

@@ -91,17 +91,100 @@ public class Menu extends Fragment {
         burrito.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String burritos="burritos";
-                mostrarMenu(burritos);
+                int burritos=1;
+                switchCarta(burritos);
             }
+        });
 
+        bebidas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int bebidas=2;
+                switchCarta(bebidas);
+            }
+        });
 
+        tacos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int tacos=3;
+                switchCarta(tacos);
+            }
+        });
+
+        quesadillas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int quesadillas=4;
+                switchCarta(quesadillas);
+            }
+        });
+
+        nachos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int nachos=5;
+                switchCarta(nachos);
+            }
         });
 
         return v;
     }
 
-    private void mostrarMenu(String comida) {
+    private void switchCarta(int nombre){
+
+        String colorTexto,colorTitulo,colorFondo="";
+        int menu,tituloMenu,cantidad=0;
+        switch (nombre){
+            case 1:
+                colorFondo="#00DEB5";
+                colorTitulo="#FF5000";
+                colorTexto="#402FD7";
+                cantidad=7;
+                menu=R.array.menuBurritos;
+                tituloMenu=R.array.menuBurritosTitulo;
+                mostrarMenu(menu,tituloMenu,colorFondo,colorTitulo,colorTexto,cantidad);
+                break;
+            case 2:
+                colorFondo="#3030D0";
+                colorTitulo="#02D8B2";
+                colorTexto="#F4A3EF";
+                cantidad=12;
+                menu=R.array.menuBebidas;
+                tituloMenu=R.array.menuBebidasTitulo;
+                mostrarMenu(menu,tituloMenu,colorFondo,colorTitulo,colorTexto,cantidad);
+                break;
+            case 3:
+                colorFondo="#FF4B00";
+                colorTitulo="#EAD001";
+                colorTexto="#00DDBB";
+                cantidad=2;
+                menu=R.array.menuTacos;
+                tituloMenu=R.array.menuTacosTitulo;
+                mostrarMenu(menu,tituloMenu,colorFondo,colorTitulo,colorTexto,cantidad);
+                break;
+            case 4:
+                colorFondo="#8A0CC5";
+                colorTitulo="#EF4C07";
+                colorTexto="#08E19D";
+                //menu=R.array.menuBurritos;
+                //tituloMenu=R.array.menuBurritosTitulo;
+                //mostrarMenu(menu,tituloMenu,colorFondo,colorTitulo,colorTexto);
+                break;
+            case 5:
+                colorFondo="#FFC501";
+                colorTitulo="#F74902";
+                colorTexto="#2734C1";
+                cantidad=2;
+                menu=R.array.menuNachos;
+                tituloMenu=R.array.menuNachosTitulo;
+                mostrarMenu(menu,tituloMenu,colorFondo,colorTitulo,colorTexto,cantidad);
+                break;
+        }
+    }
+
+    private void mostrarMenu(int comida,int tituloComida,String colorFondo,String colorTitulo,String colorTexto
+    ,int cantidad) {
 
 
         final Dialog dialog = new Dialog(getContext());
@@ -109,20 +192,30 @@ public class Menu extends Fragment {
         ConstraintLayout containerPadre=dialog.findViewById(R.id.containerPadre);
         LinearLayout container=dialog.findViewById(R.id.containerMenu);
 
-        containerPadre.setBackgroundColor(Color.parseColor("#FFC500"));
+        containerPadre.setBackgroundColor(Color.parseColor(colorFondo));
 
         dialog.setTitle("Title...");
 
         textos = new ArrayList<TextView>();
         textTituloCominda = new ArrayList<String[]>();
         textCominda = new ArrayList<String[]>();
-        for (int i = 0; i < 7; i++) {
-            textTituloCominda.add(getResources().getStringArray(R.array.menuBurritosTitulo));
+        if(textos.size()>0){
+            for(int i=0;i<textos.size();i++){
+                titulos.remove(i);
+                textos.remove(i);
+
+                container.removeView(titulos.get(i));
+                container.removeView(textos.get(i));
+            }
+        }
+
+        for (int i = 0; i < cantidad; i++) {
+            textTituloCominda.add(getResources().getStringArray(tituloComida));
             TextView t= new TextView(getContext());
             titulos.add(t);
         }
-        for (int i = 0; i < 7; i++) {
-            textCominda.add(getResources().getStringArray(R.array.menuBurritos));
+        for (int i = 0; i < cantidad; i++) {
+            textCominda.add(getResources().getStringArray(comida));
             TextView t= new TextView(getContext());
             textos.add(t);
         }
@@ -134,7 +227,8 @@ public class Menu extends Fragment {
             textos.get(j).setId(j);
             titulos.get(j).setTypeface(typeface);
             textos.get(j).setTypeface(typeface);
-            titulos.get(j).setTextColor(Color.parseColor("#000000"));
+            titulos.get(j).setTextColor(Color.parseColor(colorTitulo));
+            textos.get(j).setTextColor(Color.parseColor(colorTexto));
             titulos.get(j).setTextSize(20);
             //textos.get(j).setTextColor(Color.parseColor("#000000"));
             container.addView(titulos.get(j));
@@ -146,6 +240,7 @@ public class Menu extends Fragment {
             @Override
             public void onClick(View v) {
                 for(int i=0;i<textos.size();i++){
+
                     container.removeView(titulos.get(i));
                     container.removeView(textos.get(i));
                 }
