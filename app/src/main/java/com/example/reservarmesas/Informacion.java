@@ -116,8 +116,6 @@ public class Informacion extends Fragment {
 
     private void initData() {
         bodyList=new ArrayList<Body>();
-
-        //bodyList.add(new Body("Persona","holiwi"));
         bodyList.add(new Body("APP",getString(R.string.infoAPP)));
         bodyList.add(new Body("Restaurante",getString(R.string.infoRestaurante)));
     }

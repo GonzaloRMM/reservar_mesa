@@ -1,8 +1,6 @@
 package com.example.reservarmesas;
 
-import android.app.TabActivity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
@@ -10,19 +8,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -52,10 +45,11 @@ public class Inicio extends Fragment {
     private String mParam2;
 
 
-    String email="";
+    String email = "";
+
     public Inicio(String email) {
         // Required empty public constructor
-        this.email=email;
+        this.email = email;
     }
 
     /**
@@ -86,50 +80,56 @@ public class Inicio extends Fragment {
     }
 
     private LinearLayout perfil;
-    private Button eliminar,hacerReserva;
+    private Button eliminarReserva, hacerReserva, eliminarPedido, hacerPedido;
     private ImageButton verPerfil;
-    private TextView name,reserva,ultima;
+    private TextView name, reserva, pedido;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Intent tabs;
     Typeface typeface;
+    private String bodyReserva, bodyPedido;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_mis_reservas,container,false);
+        View v = inflater.inflate(R.layout.fragment_mis_reservas, container, false);
 
-        perfil=(LinearLayout)v.findViewById(R.id.layoutPerfil);
+        perfil = (LinearLayout) v.findViewById(R.id.layoutPerfil);
 
-        name=(TextView) v.findViewById(R.id.textPerfil);
-        reserva=(TextView) v.findViewById(R.id.text_reservaUltima);
-        ultima=(TextView) v.findViewById(R.id.text_reserva);
+        name = (TextView) v.findViewById(R.id.textPerfil);
+        pedido = (TextView) v.findViewById(R.id.textPedido);
+        reserva = (TextView) v.findViewById(R.id.textReserva);
 
-        eliminar=(Button) v.findViewById(R.id.button_Eliminar);
-        hacerReserva=(Button) v.findViewById(R.id.button_reserva);
-        verPerfil=(ImageButton) v.findViewById(R.id.button_perfil);
+        eliminarReserva = (Button) v.findViewById(R.id.button_Eliminar);
+        hacerReserva = (Button) v.findViewById(R.id.button_reserva);
+        eliminarPedido = (Button) v.findViewById(R.id.button_EliminarPedido);
+        hacerPedido = (Button) v.findViewById(R.id.button_pedido);
+        verPerfil = (ImageButton) v.findViewById(R.id.button_perfil);
 
         tabs = new Intent(getActivity(), Tabs.class);
-        EditPerfil p= new EditPerfil(email);
 
+        EditPerfil p = new EditPerfil(email);
 
-        typeface= ResourcesCompat.getFont(getContext(), R.font.denk_one);
+        buscarReserva();
 
-        buscarReserva(reserva);
-
-        p.buscarNombre(name,"");
+        typeface = ResourcesCompat.getFont(getContext(), R.font.denk_one);
+        p.buscarNombre(name, "");
         name.setTypeface(typeface);
-        reserva.setTypeface(typeface);
-        ultima.setTypeface(typeface);
 
-        eliminar.setTypeface(typeface);
-
+        eliminarReserva.setTypeface(typeface);
         hacerReserva.setTypeface(typeface);
         hacerReserva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 abrirTab(2);
+            }
+        });
+        hacerPedido.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                abrirTab(1);
             }
         });
 
@@ -147,61 +147,78 @@ public class Inicio extends Fragment {
             }
         });
 
-        eliminar.setOnClickListener(new View.OnClickListener() {
+        eliminarReserva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.collection("Booking").document(email)
-                        .delete()
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "DocumentSnapshot successfully deleted!");
-                                reserva.setText("No tiene ninguna reserva aun");
-                                eliminar.setEnabled(false);
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error deleting document", e);
-                            }
-                        });
+                eliminarDatos("Booking", eliminarReserva);
             }
         });
-
+        eliminarPedido.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                eliminarDatos("Order", eliminarPedido);
+            }
+        });
         return v;
     }
 
-    private void buscarReserva(TextView reserva) {
+    private void buscarReserva() {
         db.collection("Booking").document(email).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                if(value.exists()){
-                    if(value.contains("date")&&value.contains("people")&&value.contains("time")){
-                        if(value.getString("people").equals(1+"")){
-                            ultima.setText("Su ultima reserva fue: ");
-                            reserva.setText("\nDate: "+ value.getString("date")
-                                    +"\n \nPerson: "+ value.getString("people")+ "\n \nTime: " + value.getString("time"));
-                        }else{
-                            ultima.setText("Su ultima reserva fue: ");
-                            reserva.setText("\nDate: "+ value.getString("date")
-                                    +"\n \nPeople: "+ value.getString("people")+ "\n \nTime: " + value.getString("time"));
-                        }
-
-                        eliminar.setEnabled(true);
+                if (value.exists()) {
+                    if (value.contains("date") && value.contains("people") && value.contains("time")) {
+                        reserva.setText("-Fecha: " + value.getString("date")
+                                + "\n-Personas: " + value.getString("people") +
+                                "\n-Tiempo: " + value.getString("time"));
+                        eliminarReserva.setEnabled(true);
                     }
-                }
-                else{
-                    ultima.setText("");
+                } else {
                     reserva.setText("No tiene ninguna reserva aun");
-                    eliminar.setEnabled(false);
+                    eliminarReserva.setEnabled(false);
                 }
             }
         });
+
+        db.collection("Order").document(email).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (value.exists()) {
+                    if (value.contains("price") && value.contains("products")) {
+                        String lista = value.get("products").toString().substring(1, value.get("products").toString().length() - 1);
+                        pedido.setText("-Productos: " + lista + "\n-" + value.getString("price"));
+                        eliminarPedido.setEnabled(true);
+                    }
+                } else {
+                    pedido.setText("No tienes ninguna compra aun");
+                    eliminarPedido.setEnabled(false);
+                }
+            }
+        });
+
     }
-    public void abrirTab(int numTab){
+
+    public void abrirTab(int numTab) {
         getContext().sendBroadcast(tabs);
         TabLayout tabhost = (TabLayout) getActivity().findViewById(R.id.tabLayout);
         tabhost.getTabAt(numTab).select();
+    }
+
+    public void eliminarDatos(String tabla, Button boton) {
+        db.collection(tabla).document(email)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                        boton.setEnabled(false);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting document", e);
+                    }
+                });
     }
 }

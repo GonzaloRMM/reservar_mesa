@@ -34,6 +34,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".admin"
             android:screenOrientation="portrait"/>
+        <activity android:name=".Pedido"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="preloaded_fonts"

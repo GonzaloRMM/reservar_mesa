@@ -21,7 +21,6 @@ import java.util.Map;
 
 public class Confirmacion extends AppCompatActivity {
 
-
         TextView datos;
         Button cancelar, confirmar;
         Bundle bundle;

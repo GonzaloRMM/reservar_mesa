@@ -11,9 +11,10 @@ import com.google.android.material.tabs.TabLayout;
 public class Tabs extends AppCompatActivity {
 
     TabLayout tabs;
-    TabItem filtro,perfil;
+    TabItem filtro, perfil;
     ViewPager viewPager;
     Bundle bundle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,12 +22,12 @@ public class Tabs extends AppCompatActivity {
 
         getSupportActionBar().hide();
         tabs = findViewById(R.id.tabLayout);
-        filtro=findViewById(R.id.tabReserva);
-        perfil=findViewById(R.id.tabPerfil);
-        viewPager=findViewById(R.id.viewPager);
-        bundle= getIntent().getExtras();
+        filtro = findViewById(R.id.tabReserva);
+        perfil = findViewById(R.id.tabPerfil);
+        viewPager = findViewById(R.id.viewPager);
+        bundle = getIntent().getExtras();
 
-        PagerAdapter tabAdapter= new PagerAdapter(getSupportFragmentManager(),tabs.getTabCount(),bundle.getString("email"));
+        PagerAdapter tabAdapter = new PagerAdapter(getSupportFragmentManager(), tabs.getTabCount(), bundle.getString("email"));
 
         viewPager.beginFakeDrag();
         viewPager.setAdapter(tabAdapter);
@@ -35,7 +36,6 @@ public class Tabs extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
-
             }
 
             @Override
@@ -44,12 +44,9 @@ public class Tabs extends AppCompatActivity {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
 
     }
-
-
-        }
+}
 

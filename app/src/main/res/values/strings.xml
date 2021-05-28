@@ -29,13 +29,13 @@
         <item>22:00</item>
     </string-array>
     <string-array name="menuBurritosTitulo">
-        <item>Burrito Frontera Fried Chicken 7,50€</item>
-        <item>Burrito Ándale Chicken 7,50€</item>
-        <item>Burrito Huracán Pibil 7,50€</item>
-        <item>Burrito Santo Veggie 7,50€</item>
-        <item>Burrito Entraña Monterrey 7,50€</item>
-        <item>Burrito Colimote 7,50€</item>
-        <item>¡Burrito al Gusto! 7,50€</item>
+        <item>Burrito Frontera Fried Chicken 7.50€</item>
+        <item>Burrito Ándale Chicken 7.50€</item>
+        <item>Burrito Huracán Pibil 7.50€</item>
+        <item>Burrito Santo Veggie 7.50€</item>
+        <item>Burrito Entraña Monterrey 7.50€</item>
+        <item>Burrito Colimote 7.50€</item>
+        <item>"Burrito al Gusto" 7.50€</item>
     </string-array>
 
     <string-array name="menuBurritos">
@@ -50,8 +50,8 @@
     </string-array>
 
     <string-array name="menuNachosTitulo">
-        <item>Nachos con Guacamole 7,00€</item>
-        <item>Nachos Completos con Carne 8,00€</item>
+        <item>Nachos con Guacamole 7.00€</item>
+        <item>Nachos Completos con Carne 8.00€</item>
 
     </string-array>
 
@@ -61,8 +61,8 @@
     </string-array>
 
     <string-array name="menuTacosTitulo">
-        <item>Tacos, 2 Unidades a Elegir 5,00€</item>
-        <item>Tacos, 4 Unidades a Elegir 9,00€</item>
+        <item>Tacos, 2 Unidades a Elegir 5.00€</item>
+        <item>Tacos, 4 Unidades a Elegir 9.00€</item>
     </string-array>
 
     <string-array name="menuTacos">
@@ -77,18 +77,18 @@
     </string-array>
 
     <string-array name="menuBebidasTitulo">
-        <item>Agua 1,90 €</item>
-        <item>Cerveza Victoria 1,90€</item>
-        <item>Coca Cola 1,90€ 1,90€</item>
-        <item>Coca Cola Zero 1,90€</item>
-        <item>Fanta Limón 1,90€</item>
-        <item>Fanta Naranja 1,90€</item>
-        <item>Aquarius Limón 1,90€</item>
-        <item>Aquarius Naranja 1,90€</item>
-        <item>Nestea 1,90€</item>
-        <item>Jarrito Piña 2,50€</item>
-        <item>Jarrito Lima 2,50€</item>
-        <item>Jarrito Pomelo 2,50€</item>
+        <item>Agua 1.90€</item>
+        <item>Cerveza Victoria 1.90€</item>
+        <item>Coca Cola 1.90€</item>
+        <item>Coca Cola Zero 1.90€</item>
+        <item>Fanta Limón 1.90€</item>
+        <item>Fanta Naranja 1.90€</item>
+        <item>Aquarius Limón 1.90€</item>
+        <item>Aquarius Naranja 1.90€</item>
+        <item>Nestea 1.90€</item>
+        <item>Jarrito Piña 2.50€</item>
+        <item>Jarrito Lima 2.50€</item>
+        <item>Jarrito Pomelo 2.50€</item>
 
     </string-array>
 
@@ -108,9 +108,9 @@
     </string-array>
 
     <string-array name="menuQuesadillasTitulo">
-        <item>Quesadilla de Tinga de Pollo 6,90€</item>
-        <item>Quesadilla de Cochinita Pibil 6,90€</item>
-        <item>Quesadilla de Entraña 7,40€</item>
+        <item>Quesadilla de Tinga de Pollo 6.90€</item>
+        <item>Quesadilla de Cochinita Pibil 6.90€</item>
+        <item>Quesadilla de Entraña 7.40€</item>
     </string-array>
 
     <string-array name="menuQuesadillas">

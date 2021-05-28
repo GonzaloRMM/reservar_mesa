@@ -44,9 +44,9 @@ public class login extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Button continuar;
     private EditText email, password;
-    private Intent registro, filtro,tabs,admin;
+    private Intent registro, filtro, tabs, admin;
     SignInButton google;
-    private final int RC_SIGN_IN=1;
+    private final int RC_SIGN_IN = 1;
     private ProgressBar spinner;
 
 
@@ -56,15 +56,15 @@ public class login extends AppCompatActivity {
         setContentView(R.layout.login);
 
         getSupportActionBar().hide();
-        continuar= (Button)findViewById(R.id.B_Continuar);
-        google =(SignInButton) findViewById(R.id.button_google);
+        continuar = (Button) findViewById(R.id.B_Continuar);
+        google = (SignInButton) findViewById(R.id.button_google);
         email = (EditText) findViewById(R.id.Edit_Correo);
         password = (EditText) findViewById(R.id.Edit_Contraseña);
         registro = new Intent(this, Registro.class);
         filtro = new Intent(this, Filtro.class);
         tabs = new Intent(this, Tabs.class);
         admin = new Intent(this, admin.class);
-        spinner = (ProgressBar)findViewById(R.id.progressBar1);
+        spinner = (ProgressBar) findViewById(R.id.progressBar1);
         spinner.setVisibility(View.GONE);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -87,7 +87,7 @@ public class login extends AppCompatActivity {
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CollectionReference users=db.collection("users");
+                CollectionReference users = db.collection("users");
                 db.collection("users")
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -95,8 +95,8 @@ public class login extends AppCompatActivity {
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if (task.isSuccessful()) {
                                     for (QueryDocumentSnapshot document : task.getResult()) {
-                                        if(document.getId().equals(email.getText().toString())     ){
-                                            if(document.getData().get("password").equals(password.getText().toString())){
+                                        if (document.getId().equals(email.getText().toString())) {
+                                            if (document.getData().get("password").equals(password.getText().toString())) {
                                                 //Toast. makeText(getApplicationContext(),"ole to", Toast. LENGTH_SHORT).show();
                                                 spinner.setVisibility(View.VISIBLE);
                                                 Bundle b = new Bundle();
@@ -104,13 +104,11 @@ public class login extends AppCompatActivity {
                                                 tabs.putExtras(b);
                                                 startActivity(tabs);
                                                 spinner.setVisibility(View.GONE);
-                                                //spinner.setVisibility(View.VISIBLE);
                                             }
-                                       }
                                         }
                                     }
-                                else{
-                                    Toast. makeText(getApplicationContext(),"email or password is not correct", Toast. LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "email or password is not correct", Toast.LENGTH_SHORT).show();
                                     email.setText("");
                                     password.setText("");
                                 }
@@ -119,11 +117,13 @@ public class login extends AppCompatActivity {
             }
         });
     }
+
     private void signIn(GoogleSignInClient mGoogleSignInClient) {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
         //startActivityForResult(myIntent, 1);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -136,6 +136,7 @@ public class login extends AppCompatActivity {
             handleSignInResult(task);
         }
     }
+
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);

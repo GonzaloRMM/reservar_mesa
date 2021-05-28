@@ -126,7 +126,6 @@ public class Reservas extends Fragment {
 
     private LinearLayout principal;
     private Button menos, mas, reserve, number;
-
     int num,contador = 0;
     private GridLayout horasGrid;
     ArrayList<String> datos = new ArrayList<String>();
@@ -135,14 +134,11 @@ public class Reservas extends Fragment {
     ArrayList<String[]> times;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     EditText etPlannedDate;
-    Bundle bundle;
     DatePickerDialog picker;
     String tiempo ,name,phone= "";
     Typeface typeface;
     Intent confirmacion;
     private Intent tabs;
-    ScrollView scroller;
-    ViewGroup container;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
