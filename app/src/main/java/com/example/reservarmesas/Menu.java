@@ -242,9 +242,6 @@ public class Menu extends Fragment {
         textTituloCominda = new ArrayList<String[]>();
         textCominda = new ArrayList<String[]>();
 
-
-        //dialog.setTitle("Title...");
-
         for (int i = 0; i < cantidad; i++) {
             TextView t = new TextView(getContext());
             textPedido.add(new TextView(getContext()));
@@ -302,7 +299,7 @@ public class Menu extends Fragment {
                     for (int i = 0; i < botonNum.size(); i++) {
                         if (b.getId() == botonNum.get(i).getId()) {
                             int numBoton = Integer.parseInt(botonNum.get(i).getText().toString());
-                            if (numBoton > 1) {
+                            if (numBoton > 0) {
                                 //precioNum.set(i, precioNum.get(i) - precioNum.get(i));
                                 numBoton--;
                                 if (precioNum.size() == 1) {
@@ -394,7 +391,11 @@ public class Menu extends Fragment {
             public void onClick(View v) {
                 ArrayList<String> datos = new ArrayList<>();
                 for (int i = 0; i < textPedido.size(); i++) {
-                    datos.add(textPedido.get(i).getText().toString());
+                    if(botonNum.get(i).getText().toString().equals("0")){
+
+                    }else{
+                        datos.add(textPedido.get(i).getText().toString());
+                    }
                 }
                 b.putString("email", email);
                 b.putStringArrayList("pedido", datos);
@@ -477,6 +478,7 @@ public class Menu extends Fragment {
                 container.removeView(precioTotal);
             }
         }
+        total=0;
     }
 
     private void mostrarMenu(int comida, int tituloComida, String colorFondo, String colorTitulo, String colorTexto

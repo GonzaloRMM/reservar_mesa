@@ -115,12 +115,13 @@ public class Pedido extends AppCompatActivity {
                     dialog.setContentView(R.layout.confirmacion);
                     dialog.setTitle("Title...");
 
+                    // set the custom dialog components - text, image and button
                     TextView text = (TextView) dialog.findViewById(R.id.textConfirmacion);
                     text.setText("¿Estas seguro de hacer la compra?");
 
                     Button confirmar = (Button) dialog.findViewById(R.id.bConfirmar);
                     Button cancelar = (Button) dialog.findViewById(R.id.bCancelar);
-
+                    // if button is clicked, close the custom dialog
                     confirmar.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -159,6 +160,8 @@ public class Pedido extends AppCompatActivity {
                             container.removeView(continuar);
                             container.removeView(textTarjeta);
                             container.removeView(logo);
+                            //finish();
+
 
                             dialog.dismiss();
                             confirmarPedido();
@@ -181,11 +184,11 @@ public class Pedido extends AppCompatActivity {
     }
 
     private void confirmarPedido() {
-        spinner = new ProgressBar(this);
+        spinner=new ProgressBar(this);
         container.addView(spinner);
         spinner.setVisibility(View.VISIBLE);
 
-        check = new ImageView(this);
+        check=new ImageView(this);
         container.addView(check);
 
         confirmacion = new TextView(this);
@@ -194,7 +197,7 @@ public class Pedido extends AppCompatActivity {
         confirmacion.setTextColor(Color.parseColor("#000000"));
         container.addView(confirmacion);
 
-        volver = new Button(this);
+        volver=new Button(this);
         volver.setText("Volver");
         volver.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2FD4A5")));
         volver.setTextColor(Color.parseColor("#FFFFFF"));
@@ -224,6 +227,5 @@ public class Pedido extends AppCompatActivity {
             public void onClick(View v) {
                 finish();
             }
-        });
-    }
+        });    }
 }
