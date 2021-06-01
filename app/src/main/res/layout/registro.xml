@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#FFC500"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/Edit_Email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:fontFamily="@font/denk_one"
+        android:hint="Email" />
 
     <EditText
         android:id="@+id/Edit_Nombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/denk_one"
         android:ems="10"
+        android:fontFamily="@font/denk_one"
         android:hint="Username" />
 
     <EditText
         android:id="@+id/edit_Password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/denk_one"
         android:ems="10"
+        android:fontFamily="@font/denk_one"
         android:hint="password"
         android:inputType="textPassword" />
 
@@ -26,8 +34,8 @@
         android:id="@+id/edit_Password2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/denk_one"
         android:ems="10"
+        android:fontFamily="@font/denk_one"
         android:hint="Repeat password"
         android:inputType="textPassword" />
 
@@ -40,10 +48,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="phone number"
         android:fontFamily="@font/denk_one"
+        android:hint="phone number"
         android:inputType="phone" />
-
 
 
     <LinearLayout
@@ -56,18 +63,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#FA7C06"
-            android:text="Save"
             android:fontFamily="@font/denk_one"
+            android:text="Save"
             android:textColor="@color/black"></Button>
+
         <Button
+            android:id="@+id/B_CerrarSesion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Volver"
-            android:textColor="@color/white"
             android:backgroundTint="#FC0000"
             android:fontFamily="@font/denk_one"
-            android:id="@+id/B_CerrarSesion">
-        </Button>
+            android:text="Volver"
+            android:textColor="@color/white"></Button>
 
     </LinearLayout>
 </LinearLayout>

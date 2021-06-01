@@ -30,34 +30,34 @@ import java.util.ArrayList;
 
 public class admin extends AppCompatActivity {
 
-    ArrayList<ArrayList<String>>personas;
-    ArrayList<String>datos;
+    ArrayList<ArrayList<String>> personas;
+    ArrayList<String> datos;
     Intent login;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ListView lv1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin);
 
-        lv1=(ListView)findViewById(R.id.listView1);
+        lv1 = (ListView) findViewById(R.id.listView1);
         recogetDatos();
-        crearAdapter(lv1,personas);
-        login= new Intent(this, login.class);
+        crearAdapter(lv1, personas);
+        login = new Intent(this, login.class);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
         GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
 
-
-        ((Button)findViewById(R.id.bRefrescar)).setOnClickListener(new View.OnClickListener() {
+        ((Button) findViewById(R.id.bRefrescar)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                crearAdapter(lv1,personas);
+                crearAdapter(lv1, personas);
             }
         });
-        ((Button)findViewById(R.id.bClose)).setOnClickListener(new View.OnClickListener() {
+        ((Button) findViewById(R.id.bClose)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signOut(mGoogleSignInClient);
@@ -73,15 +73,15 @@ public class admin extends AppCompatActivity {
     private void crearAdapter(ListView viewById, ArrayList<ArrayList<String>> datos) {
         //Toast. makeText(getApplicationContext(),""+datos.get(0).get(2), Toast. LENGTH_SHORT).show();
 
-        AdaptadorListView adapter=new AdaptadorListView(this,datos);
+        AdaptadorListView adapter = new AdaptadorListView(this, datos);
         viewById.setAdapter(adapter);
     }
 
     private void recogetDatos() {
-        personas= new ArrayList<>();
-        ArrayList<String>id=new ArrayList<>();
-        datos=new ArrayList<>();
-        CollectionReference users=db.collection("Booking");
+        personas = new ArrayList<>();
+        ArrayList<String> id = new ArrayList<>();
+        datos = new ArrayList<>();
+        CollectionReference users = db.collection("Booking");
         db.collection("Booking")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -91,32 +91,33 @@ public class admin extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 id.add(document.getId().toString());
 
-                                    db.collection("Booking").document(document.getId()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                                        @Override
-                                        public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                                            if (value.exists()) {
-                                                if(value.contains("name")){
-                                                    datos.add(value.getString("name"));
-                                                }
-                                                if (value.contains("date") && value.contains("time") && value.contains("people")) {
-                                                    datos.add(value.getString("date") + "  " + value.getString("time") +
-                                                            "  " + value.getString("people"));
-
-                                                }
-                                                if(value.contains("phone")){
-                                                    datos.add(value.getString("phone"));
-                                                    }
-                                                personas.add(datos);
+                                db.collection("Booking").document(document.getId()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                        if (value.exists()) {
+                                            if (value.contains("name")) {
+                                                datos.add(value.getString("name"));
                                             }
-                                        }
-                                    });
-                                }
-                                }
+                                            if (value.contains("date") && value.contains("time") && value.contains("people")) {
+                                                datos.add(value.getString("date") + "  " + value.getString("time") +
+                                                        "  " + value.getString("people"));
 
+                                            }
+                                            if (value.contains("phone")) {
+                                                datos.add(value.getString("phone"));
+                                            }
+                                            personas.add(datos);
+                                        }
+                                    }
+                                });
                             }
+                        }
+
+                    }
 
                 });
     }
+
     private void signOut(GoogleSignInClient mGoogleSignInClient) {
         mGoogleSignInClient.revokeAccess()
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {

@@ -38,6 +38,7 @@
             android:id="@+id/bCancelar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:backgroundTint="#FF0000"
             android:fontFamily="@font/denk_one"
             android:text="Cancelar"

@@ -11,16 +11,17 @@ import java.util.ArrayList;
 
 public class AdaptadorListView extends ArrayAdapter {
     private Activity context;
-    private ArrayList<ArrayList<String>>datos;
+    private ArrayList<ArrayList<String>> datos;
 
-    public AdaptadorListView(Activity context, ArrayList<ArrayList<String>> datos){
-        super(context,R.layout.listview,datos);
-        this.context=context;
-        this.datos=datos;
+    public AdaptadorListView(Activity context, ArrayList<ArrayList<String>> datos) {
+        super(context, R.layout.listview, datos);
+        this.context = context;
+        this.datos = datos;
     }
-    public View getView(int position, View convertView, ViewGroup parent){
-        LayoutInflater inflater=context.getLayoutInflater();
-        View item=inflater.inflate(R.layout.listview,null);
+
+    public View getView(int position, View convertView, ViewGroup parent) {
+        LayoutInflater inflater = context.getLayoutInflater();
+        View item = inflater.inflate(R.layout.listview, null);
 
         ((TextView) item.findViewById(R.id.textName)).setText(datos.get(position).get(0));
         ((TextView) item.findViewById(R.id.textReserve)).setText(datos.get(position).get(1));

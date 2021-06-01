@@ -42,9 +42,9 @@ import static android.content.ContentValues.TAG;
 public class login extends AppCompatActivity {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private Button continuar;
+    private Button continuar, registrar;
     private EditText email, password;
-    private Intent registro, filtro, tabs, admin;
+    private Intent registro, tabs, admin;
     SignInButton google;
     private final int RC_SIGN_IN = 1;
     private ProgressBar spinner;
@@ -57,13 +57,16 @@ public class login extends AppCompatActivity {
 
         getSupportActionBar().hide();
         continuar = (Button) findViewById(R.id.B_Continuar);
+        registrar = (Button) findViewById(R.id.B_Registrar);
         google = (SignInButton) findViewById(R.id.button_google);
+
         email = (EditText) findViewById(R.id.Edit_Correo);
         password = (EditText) findViewById(R.id.Edit_Contraseña);
+
         registro = new Intent(this, Registro.class);
-        filtro = new Intent(this, Filtro.class);
         tabs = new Intent(this, Tabs.class);
         admin = new Intent(this, admin.class);
+
         spinner = (ProgressBar) findViewById(R.id.progressBar1);
         spinner.setVisibility(View.GONE);
 
@@ -82,6 +85,16 @@ public class login extends AppCompatActivity {
                         signIn(mGoogleSignInClient);
                         break;
                 }
+            }
+        });
+        registrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle b = new Bundle();
+
+                b.putString("email", "");
+                registro.putExtras(b);
+                startActivity(registro, b);
             }
         });
         continuar.setOnClickListener(new View.OnClickListener() {
@@ -128,10 +141,7 @@ public class login extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
-            // The Task returned from this call is always completed, no need to attach
-            // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
         }
@@ -141,15 +151,12 @@ public class login extends AppCompatActivity {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
-            // Signed in successfully, show authenticated UI.
-            //Toast. makeText(getApplicationContext(),account.getEmail()+"\n", Toast. LENGTH_SHORT).show();
             Bundle b = new Bundle();
 
             b.putString("email", account.getEmail().toString());
 
 
             Map<String, Object> person = new HashMap<>();
-
 
             DocumentReference docRef = db.collection("users").document(account.getEmail().toString());
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -160,11 +167,6 @@ public class login extends AppCompatActivity {
                         if (document.exists()) {
                             getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                            //spinner.setVisibility(View.VISIBLE);
-
-                            //if(db.collection("users"))
-                            //filtro.putExtras(b);
-                            //startActivityForResult(filtro,1);
 
                             db.collection("users")
                                     .whereNotEqualTo("roll", "admin")
@@ -194,34 +196,7 @@ public class login extends AppCompatActivity {
                                             }
                                         }
                                     });
-                          /*db.collection("users").document(account.getEmail().toString()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                                @Override
-                                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                                    if (error != null) {
-                                        Log.w(TAG, "Listen failed.", error);
-                                        return;
-                                    }
-                                    if(value!= null && value.exists()){
-                                        if(value.contains("roll")){
-                                            if(value.getString("roll").equals("admin")){
-                                                admin.putExtras(b);
-                                                startActivity(admin);
-                                            }
-                                            else{
-                                                tabs.putExtras(b);
-                                                startActivity(tabs);
-                                            }
-                                        }
-                                    }else if(!value.contains("user name")&&value!= null && value.exists()){
-                                        spinner.setVisibility(View.VISIBLE);
-                                        registro.putExtras(b);
-                                        startActivityForResult(registro, 1);
-                                        spinner.setVisibility(View.GONE);
-                                        email.setText("");
-                                        password.setText("");
-                                    }
-                                }
-                            });*/
+
                         } else {
                             db.collection("users").document(account.getEmail().toString())
                                     .set(person)

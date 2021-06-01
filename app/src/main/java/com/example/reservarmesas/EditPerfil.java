@@ -65,9 +65,10 @@ public class EditPerfil extends Fragment {
     private String mParam2;
 
     private String email;
+
     public EditPerfil(String email) {
         // Required empty public constructor
-        this.email=email;
+        this.email = email;
     }
 
     /**
@@ -97,42 +98,44 @@ public class EditPerfil extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-    private LinearLayout editar,cerrar;
-    private ImageButton edit,salir;
+
+    private LinearLayout editar, cerrar;
+    private ImageButton edit, salir;
     private TextView saludo;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private Intent splas,perfil;
+    private Intent splas, perfil;
     Typeface typeface;
     private Button editarPerfil, cerrarSesion;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_edit_perfil,container,false);
+        View v = inflater.inflate(R.layout.fragment_edit_perfil, container, false);
 
 
-        editar=(LinearLayout)v.findViewById(R.id.layoutEditar);
-        cerrar=(LinearLayout)v.findViewById(R.id.layoutSalir);
+        editar = (LinearLayout) v.findViewById(R.id.layoutEditar);
+        cerrar = (LinearLayout) v.findViewById(R.id.layoutSalir);
 
-        saludo=(TextView)v.findViewById(R.id.textSaludo);
+        saludo = (TextView) v.findViewById(R.id.textSaludo);
 
-        editarPerfil=(Button)v.findViewById(R.id.editar);
-        cerrarSesion=(Button)v.findViewById(R.id.cerrar);
+        editarPerfil = (Button) v.findViewById(R.id.editar);
+        cerrarSesion = (Button) v.findViewById(R.id.cerrar);
 
-        edit=(ImageButton)v.findViewById(R.id.button_editar);
-        salir=(ImageButton)v.findViewById(R.id.button_cerrarSesion);
+        edit = (ImageButton) v.findViewById(R.id.button_editar);
+        salir = (ImageButton) v.findViewById(R.id.button_cerrarSesion);
 
         splas = new Intent(getActivity(), SplashScreen.class);
         perfil = new Intent(getActivity(), Perfil.class);
 
-        typeface= ResourcesCompat.getFont(getContext(), R.font.denk_one);
+        typeface = ResourcesCompat.getFont(getContext(), R.font.denk_one);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
         GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
 
-        buscarNombre(saludo,"Hi ");
+        buscarNombre(saludo, "Hi ");
         saludo.setTypeface(typeface);
         saludo.setTextSize(40);
         saludo.setTextColor(Color.parseColor("#000000"));
@@ -188,18 +191,18 @@ public class EditPerfil extends Fragment {
         startActivity(perfil);
     }
 
-    public void buscarNombre(TextView saludo,String hola) {
+    public void buscarNombre(TextView saludo, String hola) {
         db.collection("users").document(email).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                if(value.exists()){
-                    if(value.contains("user name")){
+                if (value.exists()) {
+                    if (value.contains("user name")) {
                         saludo.setText(hola + value.getString("user name"));
                     }
                 }
             }
         });
-        }
+    }
 
     private void signOut(GoogleSignInClient mGoogleSignInClient) {
         mGoogleSignInClient.revokeAccess()
@@ -210,24 +213,22 @@ public class EditPerfil extends Fragment {
                     }
                 });
     }
+
     private void signOff(GoogleSignInClient mGoogleSignInClient) {
         final Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.confirmacion);
         dialog.setTitle("Title...");
 
-        // set the custom dialog components - text, image and button
         TextView text = (TextView) dialog.findViewById(R.id.textConfirmacion);
         text.setText("¿Quieres cerrar sesion? ");
 
         Button confirmar = (Button) dialog.findViewById(R.id.bConfirmar);
         Button cancelar = (Button) dialog.findViewById(R.id.bCancelar);
-        // if button is clicked, close the custom dialog
         confirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signOut(mGoogleSignInClient);
                 FirebaseAuth.getInstance().signOut();
-                //onBackPressed();
                 startActivity(splas);
                 getActivity().finish();
             }

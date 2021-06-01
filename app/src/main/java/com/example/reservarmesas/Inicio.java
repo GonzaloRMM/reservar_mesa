@@ -139,6 +139,7 @@ public class Inicio extends Fragment {
                 abrirTab(3);
             }
         });
+
         verPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,6 +154,7 @@ public class Inicio extends Fragment {
                 eliminarDatos("Booking", eliminarReserva);
             }
         });
+
         eliminarPedido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

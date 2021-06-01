@@ -11,15 +11,16 @@ public class PagerAdapter extends FragmentPagerAdapter {
     private int numOfTabs;
     private String email;
 
-    public PagerAdapter( FragmentManager fm, int numOfTabs,String email) {
+    public PagerAdapter(FragmentManager fm, int numOfTabs, String email) {
 
         super(fm);
-        this.numOfTabs=numOfTabs;
-        this.email=email;
+        this.numOfTabs = numOfTabs;
+        this.email = email;
     }
+
     @Override
     public Fragment getItem(int position) {
-        switch (position){
+        switch (position) {
             case 0:
                 return new Inicio(email);
             case 1:

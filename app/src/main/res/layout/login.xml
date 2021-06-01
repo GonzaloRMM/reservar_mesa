@@ -48,11 +48,15 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <com.google.android.gms.common.SignInButton
-                android:id="@+id/button_google"
+            <Button
+                android:id="@+id/B_Registrar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
+                android:backgroundTint="#FA7C06"
+                android:fontFamily="@font/denk_one"
+                android:gravity="start|right"
+                android:text="Registrar"
+                android:textColor="@color/black"></Button>
 
             <Space
                 android:layout_width="8dp"
@@ -62,13 +66,23 @@
                 android:id="@+id/B_Continuar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#FA7C06"
+                android:backgroundTint="#10D4BF"
                 android:fontFamily="@font/denk_one"
                 android:gravity="start|right"
                 android:text="Continuar"
                 android:textColor="@color/black"></Button>
 
         </LinearLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="8dp" />
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/button_google"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
     </LinearLayout>
 
     <ImageView

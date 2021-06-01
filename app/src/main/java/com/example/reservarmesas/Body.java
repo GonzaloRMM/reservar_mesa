@@ -1,16 +1,16 @@
 package com.example.reservarmesas;
 
 public class Body {
-    private String head,body;
+    private String head, body;
     private boolean expandable;
 
-    public Body(String head,String body){
-        this.head=head;
-        this.body=body;
-        this.expandable=false;
+    public Body(String head, String body) {
+        this.head = head;
+        this.body = body;
+        this.expandable = false;
     }
 
-    public boolean isExpandable(){
+    public boolean isExpandable() {
         return expandable;
     }
 
@@ -35,7 +35,7 @@ public class Body {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Body{" +
                 "head='" + head + '\'' +
                 ", body='" + body + '\'' +

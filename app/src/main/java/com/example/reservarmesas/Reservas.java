@@ -16,7 +16,6 @@ import android.os.Build;
 import android.os.Bundle;
 
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -78,7 +77,6 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 public class Reservas extends Fragment {
 
 
-
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -89,10 +87,11 @@ public class Reservas extends Fragment {
     private String mParam2;
 
 
-    String email="";
+    String email = "";
+
     public Reservas(String email) {
         // Required empty public constructor
-        this.email=email;
+        this.email = email;
     }
 
     /**
@@ -126,7 +125,7 @@ public class Reservas extends Fragment {
 
     private LinearLayout principal;
     private Button menos, mas, reserve, number;
-    int num,contador = 0;
+    int num, contador = 0;
     private GridLayout horasGrid;
     ArrayList<String> datos = new ArrayList<String>();
     ArrayList<View> tiempos;
@@ -135,7 +134,7 @@ public class Reservas extends Fragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     EditText etPlannedDate;
     DatePickerDialog picker;
-    String tiempo ,name,phone= "";
+    String tiempo, name, phone = "";
     Typeface typeface;
     Intent confirmacion;
     private Intent tabs;
@@ -143,31 +142,21 @@ public class Reservas extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_reservas, container, false);
-        View v = inflater.inflate(R.layout.fragment_reservas,container,false);
 
+        View v = inflater.inflate(R.layout.fragment_reservas, container, false);
 
-        principal=(LinearLayout)v.findViewById(R.id.reservaContenedor);
-
-        typeface= ResourcesCompat.getFont(getContext(), R.font.denk_one);
-
-        etPlannedDate = (EditText)v.findViewById(R.id.etPlannedDate);
-
-        horasGrid = (GridLayout)v.findViewById(R.id.contenedorTiempos);
-
-        confirmacion=new Intent(getActivity(),Confirmacion.class);
-
-        menos = (Button)v.findViewById(R.id.button_menos);
-        mas = (Button)v.findViewById(R.id.button_mas);
-        number = (Button)v.findViewById(R.id.button_number);
-        reserve = (Button)v.findViewById(R.id.button_reserve);
-
+        principal = (LinearLayout) v.findViewById(R.id.reservaContenedor);
+        typeface = ResourcesCompat.getFont(getContext(), R.font.denk_one);
+        etPlannedDate = (EditText) v.findViewById(R.id.etPlannedDate);
+        horasGrid = (GridLayout) v.findViewById(R.id.contenedorTiempos);
+        confirmacion = new Intent(getActivity(), Confirmacion.class);
+        menos = (Button) v.findViewById(R.id.button_menos);
+        mas = (Button) v.findViewById(R.id.button_mas);
+        number = (Button) v.findViewById(R.id.button_number);
+        reserve = (Button) v.findViewById(R.id.button_reserve);
         tabs = new Intent(getActivity(), Tabs.class);
-
         horasGrid.setColumnCount(4);
-        tiempos=horasGrid.getTouchables();
-
+        tiempos = horasGrid.getTouchables();
 
         etPlannedDate.setFocusable(false);
         etPlannedDate.setClickable(true);
@@ -182,11 +171,8 @@ public class Reservas extends Fragment {
         number.setText(num + "");
         number.setTypeface(typeface);
         ViewGroup.LayoutParams params = number.getLayoutParams();
-        //params.width = 100;
-        //number.setLayoutParams(params);
 
         number.setTextColor(ColorStateList.valueOf(Color.parseColor("#000000")));
-        //number.setBackground(getResources().getDrawable(R.drawable.boton_redondo));
 
         menos.setText("-");
         menos.setTypeface(typeface);
@@ -197,7 +183,6 @@ public class Reservas extends Fragment {
         mas.setTypeface(typeface);
         mas.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#8A0CC5")));
         mas.setTextColor(Color.parseColor("#FFFFFF"));
-
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -221,8 +206,7 @@ public class Reservas extends Fragment {
                 if (num > 0) {
                     num--;
                     number.setText(num + "");
-                }
-                else{
+                } else {
                     Toast.makeText(container.getContext(), "opcion no valida", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -239,8 +223,6 @@ public class Reservas extends Fragment {
                 }
             }
         });
-
-
         return v;
     }
 
@@ -248,13 +230,13 @@ public class Reservas extends Fragment {
         db.collection("users").document(email).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                if(value.exists()){
-                    if(value.contains("user name")){
-                        name=(value.getString("user name"));
+                if (value.exists()) {
+                    if (value.contains("user name")) {
+                        name = (value.getString("user name"));
 
                     }
-                    if(value.contains("phone")){
-                        phone=( value.getString("phone"));
+                    if (value.contains("phone")) {
+                        phone = (value.getString("phone"));
                     }
                 }
             }
@@ -266,7 +248,7 @@ public class Reservas extends Fragment {
         times = new ArrayList<String[]>();
         for (int i = 0; i < 10; i++) {
             times.add(getResources().getStringArray(R.array.times));
-            Button b= new Button(getContext());
+            Button b = new Button(getContext());
 
             botones.add(b);
         }
@@ -276,8 +258,6 @@ public class Reservas extends Fragment {
             botones.get(j).setId(j);
             botones.get(j).setTypeface(typeface);
             horasGrid.addView(botones.get(j));
-            //botones.get(j).setBackgroundColor(ContextCompat.getColor(getContext(),R.color.purple_200));
-
             botones.get(j).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -297,103 +277,97 @@ public class Reservas extends Fragment {
             public void onClick(View v) {
 
                 contarReservas();
-                    if (!etPlannedDate.getText().toString().equals("") && num > 0 && !tiempo.equals("")) {
-                        Bundle b = new Bundle();
-                        b.putString("email", email);
-                        b.putString("date", etPlannedDate.getText().toString());
-                        b.putString("num", num+"");
-                        b.putString("time", tiempo);
-                        confirmacion.putExtras(b);
-                        //startActivity(confirmacion);
+                if (!etPlannedDate.getText().toString().equals("") && num > 0 && !tiempo.equals("")) {
+                    Bundle b = new Bundle();
+                    b.putString("email", email);
+                    b.putString("date", etPlannedDate.getText().toString());
+                    b.putString("num", num + "");
+                    b.putString("time", tiempo);
+                    confirmacion.putExtras(b);
+                    //startActivity(confirmacion);
 
-                        final Dialog dialog = new Dialog(getContext());
-                        dialog.setContentView(R.layout.confirmacion);
-                        dialog.setTitle("Title...");
+                    final Dialog dialog = new Dialog(getContext());
+                    dialog.setContentView(R.layout.confirmacion);
+                    dialog.setTitle("Title...");
 
-                        // set the custom dialog components - text, image and button
-                        TextView text = (TextView) dialog.findViewById(R.id.textConfirmacion);
-                        text.setText("Tu reserva: " + etPlannedDate.getText().toString() +
-                                " " + number.getText().toString() +" people" + " " + tiempo);
+                    TextView text = (TextView) dialog.findViewById(R.id.textConfirmacion);
+                    text.setText("Tu reserva: " + etPlannedDate.getText().toString() +
+                            " " + number.getText().toString() + " people" + " " + tiempo);
 
-                        Button confirmar = (Button) dialog.findViewById(R.id.bConfirmar);
-                        Button cancelar = (Button) dialog.findViewById(R.id.bCancelar);
-                        // if button is clicked, close the custom dialog
-                        confirmar.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                if (contador < 7) {
-                                    Map<String, Object> reserva = new HashMap<>();
+                    Button confirmar = (Button) dialog.findViewById(R.id.bConfirmar);
+                    Button cancelar = (Button) dialog.findViewById(R.id.bCancelar);
+                    confirmar.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (contador < 7) {
+                                Map<String, Object> reserva = new HashMap<>();
 
-                                    db.collection("Booking").document(email)
-                                            .set(reserva)
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-                                                    Log.d("TAG", "DocumentSnapshot successfully written!");
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Log.w("TAG", "Error writing document", e);
-                                                }
-                                            });
+                                db.collection("Booking").document(email)
+                                        .set(reserva)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d("TAG", "DocumentSnapshot successfully written!");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w("TAG", "Error writing document", e);
+                                            }
+                                        });
 
-                                    reserva.put("date", etPlannedDate.getText().toString());
-                                    reserva.put("people", number.getText().toString());
-                                    reserva.put("time", tiempo);
-                                    reserva.put("name", name);
-                                    reserva.put("phone", phone);
+                                reserva.put("date", etPlannedDate.getText().toString());
+                                reserva.put("people", number.getText().toString());
+                                reserva.put("time", tiempo);
+                                reserva.put("name", name);
+                                reserva.put("phone", phone);
 
-                                    db.collection("Booking").document(email).update(reserva);
+                                db.collection("Booking").document(email).update(reserva);
 
+                                etPlannedDate.setText("");
+                                number.setText(0 + "");
+                                num = 0;
+                                for (int i = 0; i < botones.size(); i++) {
+                                    botones.get(i).setEnabled(true);
+                                }
+                                tiempo = "";
+                                Toast.makeText(v.getContext(), "Reserva realizada", Toast.LENGTH_SHORT).show();
 
-                                    etPlannedDate.setText("");
-                                    number.setText(0 + "");
-                                    num = 0;
-                                    for (int i = 0; i < botones.size(); i++) {
-                                        botones.get(i).setEnabled(true);
-                                    }
-                                    tiempo = "";
-                                    Toast.makeText(v.getContext(), "Reserva realizada", Toast.LENGTH_SHORT).show();
+                                getContext().sendBroadcast(tabs);
+                                TabLayout tabhost = (TabLayout) getActivity().findViewById(R.id.tabLayout);
+                                tabhost.getTabAt(0).select();
 
-                                    getContext().sendBroadcast(tabs);
-                                    TabLayout tabhost = (TabLayout) getActivity().findViewById(R.id.tabLayout);
-                                    tabhost.getTabAt(0).select();
-
-                                    dialog.dismiss();
-                                } else {
-                                    Toast.makeText(v.getContext(), "Esa hora no esta disponible", Toast.LENGTH_SHORT).show();
-                                    dialog.dismiss();
-                                    for(int i=0;i<botones.size();i++){
-                                        if(botones.get(i).getText().toString().equals(tiempo)){
-                                            botones.get(i).setVisibility(v.INVISIBLE);
-                                            contador=0;
-                                        }
+                                dialog.dismiss();
+                            } else {
+                                Toast.makeText(v.getContext(), "Esa hora no esta disponible", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                                for (int i = 0; i < botones.size(); i++) {
+                                    if (botones.get(i).getText().toString().equals(tiempo)) {
+                                        botones.get(i).setVisibility(v.INVISIBLE);
+                                        contador = 0;
                                     }
                                 }
                             }
-                        });
-                        cancelar.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(v.getContext(), "Reserva cancelada", Toast.LENGTH_SHORT).show();
-                                dialog.dismiss();
-                            }
-                        });
-                        dialog.show();
-
-                    } else {
-                        Toast.makeText(v.getContext(), "Falta algun campo por rellenar", Toast.LENGTH_SHORT).show();
-                    }
+                        }
+                    });
+                    cancelar.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(v.getContext(), "Reserva cancelada", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        }
+                    });
+                    dialog.show();
+                } else {
+                    Toast.makeText(v.getContext(), "Falta algun campo por rellenar", Toast.LENGTH_SHORT).show();
+                }
             }
-
-
         });
     }
 
     private void contarReservas() {
-        CollectionReference users=db.collection("Booking");
+        CollectionReference users = db.collection("Booking");
         db.collection("Booking")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -405,9 +379,9 @@ public class Reservas extends Fragment {
                                     @Override
                                     public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                                         if (value.exists()) {
-                                            if (value.contains("date") && value.contains("time") ) {
-                                                if(value.getString("date").equals(etPlannedDate.getText().toString())&&
-                                                        value.getString("time").equals(tiempo)){
+                                            if (value.contains("date") && value.contains("time")) {
+                                                if (value.getString("date").equals(etPlannedDate.getText().toString()) &&
+                                                        value.getString("time").equals(tiempo)) {
                                                     contador++;
                                                 }
                                             }
@@ -417,75 +391,66 @@ public class Reservas extends Fragment {
                                 });
                             }
                         }
-
                     }
-
                 });
     }
 
     private void showDatePickerDialog() {
-        int day,month,year;
-        if(etPlannedDate.getText().toString().equals("")){
+        int day, month, year;
+        if (etPlannedDate.getText().toString().equals("")) {
             final Calendar cldr = Calendar.getInstance();
-             day = cldr.get(Calendar.DAY_OF_MONTH);
-             month = cldr.get(Calendar.MONTH);
-             year = cldr.get(Calendar.YEAR);
-        }
-        else{
+            day = cldr.get(Calendar.DAY_OF_MONTH);
+            month = cldr.get(Calendar.MONTH);
+            year = cldr.get(Calendar.YEAR);
+        } else {
             String[] fechArray = etPlannedDate.getText().toString().split("/");
 
             day = Integer.valueOf(fechArray[0]);
-            month = Integer.valueOf(fechArray[1])-1;
+            month = Integer.valueOf(fechArray[1]) - 1;
             year = Integer.valueOf(fechArray[2]);
         }
 
-
-        // date picker dialog
-        picker = new DatePickerDialog(getView().getContext(),R.style.DatePickerDialog,
+        picker = new DatePickerDialog(getView().getContext(), R.style.DatePickerDialog,
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        String date=dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
-
+                        String date = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
                         String[] fechArray = date.split("/");
 
                         int dia = Integer.valueOf(fechArray[0]);
                         int mes = Integer.valueOf(fechArray[1]) - 1;
                         int anio = Integer.valueOf(fechArray[2]);
 
-
                         Calendar c1 = new GregorianCalendar(anio, mes, dia);
 
-                        String fechaActual=Calendar.getInstance().get(5)+"/"+(Calendar.getInstance().get(2)+1)+"/"+Calendar.getInstance().get(1);
+                        String fechaActual = Calendar.getInstance().get(5) + "/" + (Calendar.getInstance().get(2) + 1) + "/" + Calendar.getInstance().get(1);
 
                         String currentTime = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date());
 
-                        long hoy=GregorianCalendar.getInstance().getTimeInMillis();
-                        long dateElegido=c1.getTimeInMillis();
-                        if(dateElegido>=hoy||fechaActual.equals(date)){
+                        long hoy = GregorianCalendar.getInstance().getTimeInMillis();
+                        long dateElegido = c1.getTimeInMillis();
+                        if (dateElegido >= hoy || fechaActual.equals(date)) {
                             etPlannedDate.setText(date);
                             horasGrid.removeAllViews();
                             crearTiempos(tiempos);
-                            for(int i=0; i<botones.size();i++){
+                            for (int i = 0; i < botones.size(); i++) {
 
-                                String[] horaActual=currentTime.split(":");
-                                int horaAct=Integer.valueOf(horaActual[0]);
-                                int minAct=Integer.valueOf(horaActual[1]);
+                                String[] horaActual = currentTime.split(":");
+                                int horaAct = Integer.valueOf(horaActual[0]);
+                                int minAct = Integer.valueOf(horaActual[1]);
 
-                                String[] horaBoton=botones.get(i).getText().toString().split(":");
-                                int hora=Integer.valueOf(horaBoton[0]);
-                                int min=Integer.valueOf(horaBoton[1]);
+                                String[] horaBoton = botones.get(i).getText().toString().split(":");
+                                int hora = Integer.valueOf(horaBoton[0]);
+                                int min = Integer.valueOf(horaBoton[1]);
 
-                                if(horaAct>hora&&fechaActual.equals(date)){
+                                if (horaAct > hora && fechaActual.equals(date)) {
                                     botones.get(i).setVisibility(view.INVISIBLE);
-                                }
-                                else if(horaAct==hora&&minAct>min&&fechaActual.equals(date)){
+                                } else if (horaAct == hora && minAct > min && fechaActual.equals(date)) {
                                     botones.get(i).setVisibility(view.INVISIBLE);
                                 }
                             }
-                        }
-                        else {
-                            Toast. makeText(view.getContext(),"fecha no valida", Toast. LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(view.getContext(), "fecha no valida", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }, year, month, day);

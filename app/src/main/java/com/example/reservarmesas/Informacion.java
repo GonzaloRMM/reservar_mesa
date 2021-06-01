@@ -32,10 +32,11 @@ public class Informacion extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private String email="";
+    private String email = "";
+
     public Informacion(String email) {
         // Required empty public constructor
-        this.email=email;
+        this.email = email;
     }
 
     /**
@@ -66,19 +67,19 @@ public class Informacion extends Fragment {
     }
 
     RecyclerView recyclerView;
-    List<Body>bodyList;
-    ImageButton maps,insta,phone;
+    List<Body> bodyList;
+    ImageButton maps, insta, phone;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_informacion, container, false);
-        View v = inflater.inflate(R.layout.elv_child,container,false);
 
-        recyclerView=(RecyclerView)v.findViewById(R.id.recyclerView);
-        maps=(ImageButton)v.findViewById(R.id.maps);
-        insta=(ImageButton)v.findViewById(R.id.insta);
-        phone=(ImageButton)v.findViewById(R.id.phone);
+        View v = inflater.inflate(R.layout.elv_child, container, false);
+
+        recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
+        maps = (ImageButton) v.findViewById(R.id.maps);
+        insta = (ImageButton) v.findViewById(R.id.insta);
+        phone = (ImageButton) v.findViewById(R.id.phone);
         initData();
         setRecyclrerView();
 
@@ -103,11 +104,12 @@ public class Informacion extends Fragment {
         return v;
     }
 
-    public void accederInternet(String url){
-        Uri uri= Uri.parse(url);
-        Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+    public void accederInternet(String url) {
+        Uri uri = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
     }
+
     private void setRecyclrerView() {
         BodyAdapter bodyAdapter = new BodyAdapter(bodyList);
         recyclerView.setAdapter(bodyAdapter);
@@ -115,8 +117,8 @@ public class Informacion extends Fragment {
     }
 
     private void initData() {
-        bodyList=new ArrayList<Body>();
-        bodyList.add(new Body("APP",getString(R.string.infoAPP)));
-        bodyList.add(new Body("Restaurante",getString(R.string.infoRestaurante)));
+        bodyList = new ArrayList<Body>();
+        bodyList.add(new Body("APP", getString(R.string.infoAPP)));
+        bodyList.add(new Body("Restaurante", getString(R.string.infoRestaurante)));
     }
 }

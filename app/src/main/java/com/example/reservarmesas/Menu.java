@@ -527,7 +527,6 @@ public class Menu extends Fragment {
                     container.removeView(checks.get(i));
                     container.removeView(textos.get(i));
                 }
-                //containerPadre.removeView(container);
                 dialog.dismiss();
             }
         });
