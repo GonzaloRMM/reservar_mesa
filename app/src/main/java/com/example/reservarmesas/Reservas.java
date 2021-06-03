@@ -422,14 +422,16 @@ public class Reservas extends Fragment {
                         int anio = Integer.valueOf(fechArray[2]);
 
                         Calendar c1 = new GregorianCalendar(anio, mes, dia);
+                        Calendar c2 = new GregorianCalendar(anio, mes, dia+7);
 
                         String fechaActual = Calendar.getInstance().get(5) + "/" + (Calendar.getInstance().get(2) + 1) + "/" + Calendar.getInstance().get(1);
 
                         String currentTime = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date());
 
                         long hoy = GregorianCalendar.getInstance().getTimeInMillis();
+                        long semana = c2.getTimeInMillis();
                         long dateElegido = c1.getTimeInMillis();
-                        if (dateElegido >= hoy || fechaActual.equals(date)) {
+                        if (dateElegido >= hoy || fechaActual.equals(date)||hoy<semana) {
                             etPlannedDate.setText(date);
                             horasGrid.removeAllViews();
                             crearTiempos(tiempos);
@@ -451,6 +453,7 @@ public class Reservas extends Fragment {
                             }
                         } else {
                             Toast.makeText(view.getContext(), "fecha no valida", Toast.LENGTH_SHORT).show();
+
                         }
                     }
                 }, year, month, day);

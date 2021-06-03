@@ -88,11 +88,11 @@
 
                     <Button
                         android:id="@+id/cerrar"
-                        android:layout_width="120dp"
+                        android:layout_width="121dp"
                         android:layout_height="wrap_content"
                         android:backgroundTint="#FF4C00"
                         android:fontFamily="@font/denk_one"
-                        android:text="  Sign off"
+                        android:text="Cerrar sesion"
                         android:textColor="@color/black"></Button>
                 </LinearLayout>
             </LinearLayout>

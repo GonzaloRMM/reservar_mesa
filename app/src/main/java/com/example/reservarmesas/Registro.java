@@ -77,9 +77,11 @@ public class Registro extends AppCompatActivity {
         cerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.collection("users").document(email).delete();
-                signOut(mGoogleSignInClient);
-                FirebaseAuth.getInstance().signOut();
+                if(!email.equals("")){
+                    db.collection("users").document(email).delete();
+                    signOut(mGoogleSignInClient);
+                    FirebaseAuth.getInstance().signOut();
+                }
                 startActivity(login);
             }
         });

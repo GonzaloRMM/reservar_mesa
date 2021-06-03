@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/denk_one"
-                android:text="TextView"
+                android:text="Nombre"
                 android:textColor="#000000"
                 tools:text="Nombre" />
 
@@ -160,7 +160,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="#2B32D5"
                 android:fontFamily="@font/denk_one"
-                android:text="cancel" />
+                android:text="cancelar" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -175,7 +175,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="#10D4BF"
                 android:fontFamily="@font/denk_one"
-                android:text="save"
+                android:text="guardar"
                 android:textColor="#FFF" />
         </LinearLayout>
 
@@ -185,6 +185,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
             android:backgroundTint="#FF4C00"
-            android:text="delete"></Button>
+            android:text="borrar"></Button>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
