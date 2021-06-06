@@ -390,11 +390,12 @@ public class Menu extends Fragment {
             @Override
             public void onClick(View v) {
                 ArrayList<String> datos = new ArrayList<>();
+                ArrayList<String> cantidades = new ArrayList<>();
                 for (int i = 0; i < textPedido.size(); i++) {
                     if(botonNum.get(i).getText().toString().equals("0")){
 
                     }else{
-                        datos.add(textPedido.get(i).getText().toString());
+                        datos.add(textPedido.get(i).getText().toString()+" ("+botonNum.get(i).getText().toString()+")");
                     }
                 }
                 b.putString("email", email);
