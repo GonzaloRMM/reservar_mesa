@@ -104,8 +104,10 @@ public class Perfil extends AppCompatActivity {
                                     user.put("password", newPassword.getText().toString());
                                     user.put("user name", name.getText().toString());
                                     user.put("phone", numberPhone.getText().toString());
+                                    user.put("roll", "user");
 
-                                    db.collection("users").document(email).update(user);
+                                    db.collection("users").document(email).delete();
+                                    db.collection("users").document(email).set(user);
 
                                     nameText.setTextColor(Color.parseColor("#000000"));
                                     phoneText.setTextColor(Color.parseColor("#000000"));

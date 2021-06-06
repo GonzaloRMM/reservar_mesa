@@ -149,7 +149,6 @@ public class Pedido extends AppCompatActivity {
                             db.collection("Order").document(bundle.getString("email"))
                                     .set(pedido);
 
-                            Toast.makeText(v.getContext(), "Pago realizada", Toast.LENGTH_SHORT).show();
 
 
                             tarjeta.setVisibility(View.GONE);

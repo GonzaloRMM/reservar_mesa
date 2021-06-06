@@ -114,7 +114,6 @@ public class Registro extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 DocumentSnapshot document = task.getResult();
                                 if (document.exists()) {
-
                                     db.collection("users").document(emailText.getText().toString()).update(user);
 
                                 } else {
@@ -137,8 +136,6 @@ public class Registro extends AppCompatActivity {
                             }
                         }
                     });
-
-
                     Bundle b2 = new Bundle();
                     b2.putString("email", emailText.getText().toString());
                     tabs.putExtras(b2);
