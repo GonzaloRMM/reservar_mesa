@@ -127,7 +127,7 @@ public class Perfil extends AppCompatActivity {
                                     } else {
                                         phoneText.setTextColor(Color.parseColor("#000000"));
                                     }
-                                    if (newPassword.getText().toString().equals(confirmNewPassword)) {
+                                    if (!newPassword.getText().toString().equals(confirmNewPassword)||newPassword.getText().toString().equals("")) {
                                         newPassword.setText("");
                                         confirmNewPassword.setText("");
                                         newPasswordText.setTextColor(Color.parseColor("#FF0000"));

@@ -125,7 +125,8 @@ public class Reservas extends Fragment {
 
     private LinearLayout principal;
     private Button menos, mas, reserve, number;
-    int num, contador = 0;
+    int contador = 0;
+    int num = 1;
     private GridLayout horasGrid;
     ArrayList<String> datos = new ArrayList<String>();
     ArrayList<View> tiempos;
@@ -203,7 +204,7 @@ public class Reservas extends Fragment {
             @Override
             public void onClick(View v) {
                 num = Integer.parseInt(number.getText().toString());
-                if (num > 0) {
+                if (num > 1) {
                     num--;
                     number.setText(num + "");
                 } else {
