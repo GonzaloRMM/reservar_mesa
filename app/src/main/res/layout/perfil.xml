@@ -179,6 +179,15 @@
                 android:textColor="#FFF" />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/textActualizado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:fontFamily="@font/denk_one"
+            android:textColor="#000000"
+            android:textSize="30sp" />
+
         <Button
             android:id="@+id/bEliminarCuenta"
             android:layout_width="wrap_content"

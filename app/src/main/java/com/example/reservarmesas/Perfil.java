@@ -40,6 +40,7 @@ public class Perfil extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String email;
     private Intent login;
+    private TextView actualizado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +55,16 @@ public class Perfil extends AppCompatActivity {
         guardar = (Button) findViewById(R.id.bGuardarPerfil);
         delete = (Button) findViewById(R.id.bEliminarCuenta);
 
+        actualizado = (TextView) findViewById(R.id.textActualizado);
+
         name = (EditText) findViewById(R.id.textPersonName);
         newPassword = (EditText) findViewById(R.id.textNewPassword);
         confirmNewPassword = (EditText) findViewById(R.id.textNewPasswordConfirmada);
         lastPassword = (EditText) findViewById(R.id.textLastPassword);
         numberPhone = (EditText) findViewById(R.id.editTextPhone);
 
+
+        actualizado.setText("");
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -106,8 +111,8 @@ public class Perfil extends AppCompatActivity {
                                     user.put("phone", numberPhone.getText().toString());
                                     user.put("roll", "user");
 
-                                    db.collection("users").document(email).delete();
                                     db.collection("users").document(email).set(user);
+                                    actualizado.setText("Updated!!");
 
                                     nameText.setTextColor(Color.parseColor("#000000"));
                                     phoneText.setTextColor(Color.parseColor("#000000"));
@@ -115,7 +120,6 @@ public class Perfil extends AppCompatActivity {
                                     newPasswordText.setTextColor(Color.parseColor("#000000"));
                                     confirmNewPasswordText.setTextColor(Color.parseColor("#000000"));
 
-                                    finish();
                                 } else {
                                     if (name.getText().toString().equals("")) {
                                         name.setText("");
@@ -129,7 +133,7 @@ public class Perfil extends AppCompatActivity {
                                     } else {
                                         phoneText.setTextColor(Color.parseColor("#000000"));
                                     }
-                                    if (!newPassword.getText().toString().equals(confirmNewPassword)||newPassword.getText().toString().equals("")) {
+                                    if (!newPassword.getText().toString().equals(confirmNewPassword) || newPassword.getText().toString().equals("")) {
                                         newPassword.setText("");
                                         confirmNewPassword.setText("");
                                         newPasswordText.setTextColor(Color.parseColor("#FF0000"));
